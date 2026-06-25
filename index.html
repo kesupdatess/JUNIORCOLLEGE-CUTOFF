@@ -31,7 +31,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ============ VARIABLES ============ */
 :root {
   --primary: #2563eb;
   --primary-dark: #1e40af;
@@ -51,7 +50,6 @@
   --warning: #d97706;
   --radius: 14px;
   --radius-sm: 10px;
-  --radius-lg: 20px;
 }
 
 body.dark {
@@ -70,7 +68,6 @@ body.dark {
   --shadow-hover: 0 8px 24px rgba(0,0,0,0.5);
 }
 
-/* ============ RESET ============ */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
@@ -82,9 +79,8 @@ body {
   line-height: 1.6;
   transition: background 0.25s, color 0.25s;
   -webkit-font-smoothing: antialiased;
-  position: relative;
   min-height: 100vh;
-  padding-bottom: 100px;
+  padding-bottom: 90px;
 }
 
 body::before {
@@ -104,7 +100,6 @@ body.dark::before {
     radial-gradient(circle at 80% 80%, rgba(96,165,250,0.04) 0%, transparent 40%);
 }
 
-/* ============ LAYOUT ============ */
 .container {
   max-width: 760px;
   margin: 0 auto;
@@ -113,7 +108,6 @@ body.dark::before {
   z-index: 1;
 }
 
-/* ============ TOP BAR ============ */
 .top-bar {
   position: fixed;
   top: 0;
@@ -168,7 +162,6 @@ body.dark::before {
   border-color: var(--primary);
 }
 
-/* ============ PAGE HEADER ============ */
 .page-header {
   margin-top: 72px;
   padding: 24px 0;
@@ -198,7 +191,6 @@ body.dark::before {
 
 .page-header .instagram-btn { margin-top: 12px; }
 
-/* ============ BUTTONS ============ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -217,10 +209,9 @@ body.dark::before {
 }
 
 .btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
 
 .btn-primary { background: var(--primary); color: white; }
-.btn-primary:hover { background: var(--primary-dark); box-shadow: var(--shadow-md); }
+.btn-primary:hover { background: var(--primary-dark); }
 
 .btn-outline {
   background: var(--card);
@@ -230,14 +221,10 @@ body.dark::before {
 .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
 .btn-full { width: 100%; padding: 12px; }
-
-.btn-danger { background: var(--danger); color: white; }
 .btn-success { background: var(--success); color: white; }
-.btn-warning { background: var(--warning); color: white; }
-
+.btn-danger { background: var(--danger); color: white; }
 .btn-sm { padding: 7px 14px; font-size: 0.8rem; }
 
-/* ============ CARDS ============ */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -246,7 +233,6 @@ body.dark::before {
   margin-bottom: 16px;
   box-shadow: var(--shadow);
   transition: all 0.2s;
-  position: relative;
 }
 
 .card:hover {
@@ -275,7 +261,6 @@ body.dark::before {
   background: linear-gradient(135deg, var(--card), var(--primary-bg));
 }
 
-/* ============ LINK LIST ============ */
 .link-list {
   display: flex;
   flex-direction: column;
@@ -301,7 +286,6 @@ body.dark::before {
 .link-list a:hover {
   background: var(--primary);
   color: white;
-  border-color: var(--primary);
   transform: translateX(2px);
 }
 
@@ -316,33 +300,33 @@ body.dark::before {
   transform: translateX(3px);
 }
 
-/* ============ FEATURE LIST ============ */
-.feature-list {
+/* ERP Features List */
+.erp-features {
   list-style: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  margin: 14px 0;
+  border-radius: var(--radius);
   overflow: hidden;
-  margin: 12px 0;
+  border: 1px solid var(--border);
 }
 
-.feature-list li {
-  padding: 11px 14px;
+.erp-features li {
+  padding: 11px 18px;
   font-size: 0.88rem;
+  color: var(--text);
   border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
   transition: background 0.15s;
 }
 
-.feature-list li:last-child { border-bottom: none; }
-.feature-list li:hover { background: var(--primary-bg); }
+.erp-features li:last-child { border-bottom: none; }
+.erp-features li:nth-child(odd) { background: var(--primary-bg); }
+.erp-features li:hover { background: var(--primary-light); }
+.erp-features li a { color: inherit; text-decoration: none; }
+.erp-features li a:hover { color: var(--primary); }
 
-.feature-list a {
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 500;
-}
-.feature-list a:hover { color: var(--primary); }
-
-/* ============ INPUTS ============ */
 input, select, textarea {
   width: 100%;
   padding: 11px 14px;
@@ -373,7 +357,6 @@ label {
 
 .form-group { margin-bottom: 12px; }
 
-/* ============ TICKER ============ */
 .ticker {
   display: flex;
   align-items: center;
@@ -414,11 +397,7 @@ label {
   50% { opacity: 0.4; }
 }
 
-.ticker-content {
-  overflow: hidden;
-  flex: 1;
-  white-space: nowrap;
-}
+.ticker-content { overflow: hidden; flex: 1; white-space: nowrap; }
 
 .ticker-text {
   display: inline-block;
@@ -434,7 +413,6 @@ label {
   to { transform: translateX(-100%); }
 }
 
-/* ============ SEARCH ============ */
 .search-wrapper {
   position: sticky;
   top: 56px;
@@ -447,8 +425,6 @@ label {
   padding-right: 16px;
   margin-bottom: 10px;
 }
-
-.search-box { position: relative; }
 
 .search-input-wrap {
   position: relative;
@@ -469,11 +445,6 @@ label {
   padding-right: 14px;
   background: var(--card);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-
-.search-input-wrap input:focus {
-  box-shadow: var(--shadow-md), 0 0 0 3px rgba(37,99,235,0.1);
 }
 
 .search-suggestions {
@@ -502,14 +473,11 @@ label {
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s;
-  border: 1px solid transparent;
 }
 
 .search-suggestions span:hover {
   background: var(--primary);
   color: white;
-  border-color: var(--primary);
 }
 
 .no-results {
@@ -522,7 +490,6 @@ label {
 
 .no-results.active { display: block; }
 
-/* ============ COUNTDOWN ============ */
 .countdown-card {
   background: linear-gradient(135deg, var(--card), var(--primary-bg));
   border: 1px solid var(--primary);
@@ -595,7 +562,6 @@ label {
   border-radius: var(--radius-sm);
   padding: 12px 6px;
   text-align: center;
-  box-shadow: var(--shadow);
 }
 
 .countdown-num {
@@ -628,7 +594,6 @@ label {
   font-weight: 700;
 }
 
-/* ============ TOOLS GRID ============ */
 .tools-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -636,9 +601,7 @@ label {
   margin: 12px 0;
 }
 
-.tools-grid-3 {
-  grid-template-columns: repeat(3, 1fr);
-}
+.tools-grid-3 { grid-template-columns: repeat(3, 1fr); }
 
 .tool-card {
   padding: 16px 12px;
@@ -646,7 +609,6 @@ label {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   text-align: center;
-  cursor: pointer;
   transition: all 0.2s;
   text-decoration: none;
   color: inherit;
@@ -657,29 +619,12 @@ label {
   transform: translateY(-3px);
   border-color: var(--primary);
   box-shadow: var(--shadow-md);
-  background: var(--card);
 }
 
-.tool-icon { 
-  font-size: 1.6rem; 
-  margin-bottom: 6px;
-  display: inline-block;
-}
+.tool-icon { font-size: 1.6rem; margin-bottom: 6px; display: inline-block; }
+.tool-name { font-weight: 700; font-size: 0.85rem; color: var(--primary-dark); margin-bottom: 4px; }
+.tool-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.3; }
 
-.tool-name {
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--primary-dark);
-  margin-bottom: 4px;
-}
-
-.tool-desc {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  line-height: 1.3;
-}
-
-/* ============ EMAIL BOX ============ */
 .email-box {
   display: flex;
   align-items: center;
@@ -702,7 +647,6 @@ label {
 
 .email-actions { display: flex; gap: 6px; }
 
-/* ============ INSTAGRAM BUTTON ============ */
 .instagram-btn {
   background: linear-gradient(135deg, #E1306C, #C13584, #833AB4) !important;
   color: white !important;
@@ -710,13 +654,8 @@ label {
 }
 
 .instagram-btn:hover { opacity: 0.95; }
+.instagram-icon { width: 16px; height: 16px; }
 
-.instagram-icon {
-  width: 16px;
-  height: 16px;
-}
-
-/* ============ SIDEBAR ============ */
 .sidebar {
   position: fixed;
   top: 0;
@@ -742,17 +681,8 @@ label {
   margin-bottom: 10px;
 }
 
-.sidebar-header h3 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.sidebar-header p {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
+.sidebar-header h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+.sidebar-header p { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
 
 .sidebar a {
   color: var(--text);
@@ -762,13 +692,10 @@ label {
   font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
-.sidebar a:hover { 
-  background: var(--primary-bg); 
+.sidebar a:hover {
+  background: var(--primary-bg);
   color: var(--primary-dark);
   transform: translateX(2px);
 }
@@ -779,7 +706,6 @@ label {
   margin: 8px 0;
 }
 
-/* ============ OVERLAY ============ */
 .overlay {
   position: fixed;
   inset: 0;
@@ -791,7 +717,6 @@ label {
 
 .overlay.active { display: block; }
 
-/* ============ BACK TO TOP ============ */
 .back-to-top {
   position: fixed;
   bottom: 100px;
@@ -806,7 +731,7 @@ label {
   opacity: 0;
   pointer-events: none;
   transition: all 0.2s;
-  z-index: 998;
+  z-index: 996;
   box-shadow: 0 4px 12px rgba(37,99,235,0.3);
   font-size: 18px;
 }
@@ -814,54 +739,6 @@ label {
 .back-to-top.visible { opacity: 1; pointer-events: all; }
 .back-to-top:hover { transform: translateY(-3px); }
 
-/* ============ BOTTOM NAV ============ */
-.bottom-nav {
-  position: fixed;
-  bottom: 80px;
-  left: 0;
-  right: 0;
-  background: color-mix(in srgb, var(--card) 90%, transparent);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid var(--border);
-  padding: 8px 4px;
-  display: none;
-  justify-content: space-around;
-  z-index: 997;
-}
-
-.bottom-nav a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: 6px 10px;
-  color: var(--text-muted);
-  text-decoration: none;
-  border-radius: var(--radius-sm);
-  transition: all 0.15s;
-  flex: 1;
-  max-width: 80px;
-}
-
-.bottom-nav a .nav-icon {
-  font-size: 20px;
-  transition: transform 0.2s;
-}
-
-.bottom-nav a .nav-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-}
-
-.bottom-nav a:hover, .bottom-nav a.active {
-  color: var(--primary);
-}
-
-.bottom-nav a.active .nav-icon {
-  transform: translateY(-2px);
-}
-
-/* ============ FOOTER ============ */
 footer {
   background: var(--card);
   border-top: 1px solid var(--border);
@@ -869,12 +746,10 @@ footer {
   margin-top: 30px;
   position: relative;
   z-index: 1;
+  text-align: center;
 }
 
-.footer-content {
-  max-width: 760px;
-  margin: 0 auto;
-}
+.footer-content { max-width: 760px; margin: 0 auto; }
 
 .footer-top {
   display: grid;
@@ -883,43 +758,13 @@ footer {
   margin-bottom: 20px;
 }
 
-.footer-brand h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.footer-brand h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.footer-brand p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
 
-.footer-brand p {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
+.footer-links h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
 
-.footer-links h4 {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 10px;
-}
-
-.footer-links ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.footer-links a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.8rem;
-  transition: color 0.15s;
-}
-
+.footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; }
 .footer-links a:hover { color: var(--primary); }
 
 .footer-bottom {
@@ -930,7 +775,6 @@ footer {
   color: var(--text-muted);
 }
 
-/* ============ TOAST ============ */
 .toast {
   position: fixed;
   bottom: 120px;
@@ -944,7 +788,6 @@ footer {
   font-weight: 500;
   z-index: 2000;
   animation: toastIn 0.2s;
-  box-shadow: var(--shadow-md);
 }
 
 @keyframes toastIn {
@@ -952,13 +795,11 @@ footer {
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-/* ============ WHATSAPP ============ */
 .whatsapp-btn {
   background: #25D366 !important;
   color: white !important;
 }
 
-/* ============ SCROLL PROGRESS ============ */
 .scroll-progress {
   position: fixed;
   top: 56px;
@@ -970,7 +811,6 @@ footer {
   transition: width 0.1s;
 }
 
-/* ============ DONATION BAR ============ */
 .donation-bar {
   position: fixed;
   bottom: 0;
@@ -980,7 +820,7 @@ footer {
   color: white;
   padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
   box-shadow: 0 -4px 20px rgba(5, 150, 105, 0.25);
-  z-index: 999;
+  z-index: 998;
   font-family: 'Inter', -apple-system, sans-serif;
 }
 
@@ -993,10 +833,7 @@ footer {
   gap: 14px;
 }
 
-.donation-bar-content {
-  flex: 1;
-  min-width: 0;
-}
+.donation-bar-content { flex: 1; min-width: 0; }
 
 .donation-bar-title {
   font-size: 0.92rem;
@@ -1046,7 +883,6 @@ footer {
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
-/* ============ RESPONSIVE ============ */
 @media (max-width: 640px) {
   body { font-size: 14px; }
   .page-header h1 { font-size: 1.3rem; }
@@ -1057,19 +893,13 @@ footer {
   .tools-grid { grid-template-columns: 1fr; }
   .tools-grid-3 { grid-template-columns: repeat(3, 1fr); }
   .footer-top { grid-template-columns: 1fr; gap: 16px; }
-  .bottom-nav { display: flex; }
-  .back-to-top { bottom: 180px; }
+  .back-to-top { bottom: 100px; }
   
   .donation-bar { padding: 12px 14px calc(12px + env(safe-area-inset-bottom)); }
   .donation-bar-inner { flex-direction: column; text-align: center; gap: 10px; }
   .donation-bar-title { font-size: 0.85rem; justify-content: center; }
   .donation-bar-subtitle { font-size: 0.7rem; }
   .donation-bar-btn { width: 100%; justify-content: center; padding: 10px 16px; font-size: 0.82rem; }
-}
-
-@media (min-width: 641px) {
-  .bottom-nav { display: none; }
-  .back-to-top { bottom: 30px; }
 }
 
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
@@ -1085,10 +915,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 <body>
 
-<!-- Scroll Progress -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
-<!-- Top Bar -->
 <div class="top-bar">
   <div class="top-bar-brand">
     <span>🎓</span>
@@ -1102,7 +930,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-<!-- Sidebar -->
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <h3>🎓 KES Updates</h3>
@@ -1128,10 +955,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <a href="#feedback">💬 Feedback</a>
 </nav>
 
-<!-- Main Content -->
 <div class="container">
 
-  <!-- Page Header -->
   <header class="page-header">
     <div class="logo">🎓</div>
     <h1>KES Updates</h1>
@@ -1146,7 +971,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     </a>
   </header>
 
-  <!-- Ticker -->
   <div class="ticker">
     <span class="ticker-label">LIVE</span>
     <div class="ticker-content">
@@ -1154,19 +978,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     </div>
   </div>
 
-  <!-- Search -->
   <div class="search-wrapper">
-    <div class="search-box">
-      <div class="search-input-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search notices, fees, ERP, library..." onfocus="showSuggestions()" autocomplete="off">
-      </div>
-      <div id="searchSuggestions" class="search-suggestions"></div>
+    <div class="search-input-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search notices, fees, ERP, library..." onfocus="showSuggestions()" autocomplete="off">
     </div>
+    <div id="searchSuggestions" class="search-suggestions"></div>
   </div>
   <p id="noResults" class="no-results">😕 No matching results found.</p>
 
-  <!-- Notices -->
   <div class="card card-featured searchable" id="notices">
     <h2>📢 Important Notices</h2>
     <div class="link-list">
@@ -1182,7 +1002,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <a class="btn whatsapp-btn btn-full" href="https://wa.me/?text=Check%20out%20KES%20Updates%3A%20https%3A%2F%2Fkesupdatess.github.io%2Fkes-Updatess%2F" target="_blank" rel="noopener noreferrer">📱 Share on WhatsApp</a>
   </div>
 
-  <!-- Student Corner -->
   <div class="card searchable" id="student">
     <h2>🧑‍🎓 Student Corner</h2>
     <div class="link-list">
@@ -1202,7 +1021,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <p>Got a doubt, meme, or facing any issue? We're here to help!</p>
   </div>
 
-  <!-- Academic Info -->
   <div class="card searchable" id="academic">
     <h2>📚 Academic Info</h2>
     <div class="link-list">
@@ -1226,7 +1044,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <p>All academic documents in one place.</p>
   </div>
 
-  <!-- Exam Countdown -->
   <div class="card countdown-card searchable" id="exam-countdown">
     <div class="countdown-header">
       <span class="countdown-badge" id="countdownBadge">UPCOMING</span>
@@ -1254,7 +1071,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <p class="countdown-note">📅 Expected: <span class="highlight" id="examDate">August 18, 2026</span> • Timetable subject to change</p>
   </div>
 
-  <!-- Upcoming Events -->
   <div class="card searchable" id="upcoming-events">
     <h2>📅 Upcoming Event</h2>
     <div style="background:var(--primary-bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:8px 0;">
@@ -1271,7 +1087,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <a class="btn btn-primary btn-full" href="events.html">📅 View All Upcoming Events</a>
   </div>
 
-  <!-- Question Papers -->
+  <!-- QUESTION PAPERS - WITH erp-features LIST -->
   <div class="card searchable" id="papers">
     <h2>📄 Question Papers</h2>
     <div class="link-list">
@@ -1280,17 +1096,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         <span class="arrow">→</span>
       </a>
     </div>
-    <ul class="feature-list">
+    <ul class="erp-features">
       <li>🏫 <a href="https://kessclibrary.wixsite.com/library/question-paper-junior" target="_blank" rel="noopener noreferrer">Junior Question Papers</a></li>
       <li>🎓 <a href="https://kessclibrary.wixsite.com/library/question-paper-ug" target="_blank" rel="noopener noreferrer">UG Question Papers</a></li>
       <li>📘 <a href="https://kessclibrary.wixsite.com/library/question-paper-pg" target="_blank" rel="noopener noreferrer">PG Question Papers</a></li>
       <li>📗 <a href="https://kessclibrary.wixsite.com/library/copy-of-aicte-pg-question-papers" target="_blank" rel="noopener noreferrer">AICTE UG Question Papers</a></li>
       <li>📙 <a href="https://kessclibrary.wixsite.com/library/copy-of-ug-question-papers" target="_blank" rel="noopener noreferrer">AICTE PG Question Papers</a></li>
     </ul>
-    <p>Semester-wise papers for exam preparation.</p>
+    <p>Semester-wise question papers for exam preparation and revision.</p>
   </div>
 
-  <!-- Tools -->
   <div class="card searchable" id="tools-link">
     <h2>🧮 Student Tools</h2>
     <p>Powerful calculators designed for KES students.</p>
@@ -1309,7 +1124,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <a class="btn btn-primary btn-full" href="tools.html">🚀 Open Student Tools</a>
   </div>
 
-  <!-- ERP -->
+  <!-- ERP - WITH erp-features LIST -->
   <div class="card searchable" id="erp">
     <h2>💳 ERP Portal</h2>
     <div class="link-list">
@@ -1322,17 +1137,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         <span class="arrow">→</span>
       </a>
     </div>
-    <ul class="feature-list">
+    <ul class="erp-features">
       <li>💰 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Pay Fees & Download Receipt</a></li>
       <li>📊 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Check Result</a></li>
       <li>📝 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Apply for Credit Course</a></li>
       <li>📋 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Admission Form</a></li>
       <li>🎯 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Apply for ATKT</a></li>
     </ul>
-    <p>Official ERP system for all student services.</p>
+    <p>Official ERP system used for all student services — fees, results, registrations and more.</p>
   </div>
 
-  <!-- Library -->
   <div class="card searchable" id="library">
     <h2>📚 KES Shroff College Library</h2>
     <div class="link-list">
@@ -1344,7 +1158,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <p>Books, catalogue search, and academic material.</p>
   </div>
 
-  <!-- College Details -->
   <div class="card searchable" id="college-details">
     <h2>🏛️ College Details</h2>
     <p>Contact info, addresses & locations for all KES buildings.</p>
@@ -1368,7 +1181,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <a class="btn btn-primary btn-full" href="college.html">🏛️ View Full Details</a>
   </div>
 
-  <!-- Collaboration -->
   <div class="card searchable" id="collab">
     <h2>🤝 Collaboration</h2>
     <p>Want to collaborate with KES Updates? Reach out!</p>
@@ -1381,7 +1193,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     </div>
   </div>
 
-  <!-- About -->
   <div class="card" id="about">
     <h2>ℹ️ About KES Updates</h2>
     <p>KES Updates is an independent, student-managed page created to share notices, resources, and fun campus content. We are not an official college page, but our goal is to keep students informed, connected, and entertained 💙.</p>
@@ -1401,14 +1212,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     </div>
   </div>
 
-  <!-- Policy -->
   <div class="card searchable" id="our-policy">
     <h2>📄 Policy & Disclaimer</h2>
     <p>KES Updates operates with full transparency and legal compliance. We are a student-managed platform — not an official college body — sharing information in good faith for students.</p>
     <a class="btn btn-outline btn-full" href="policy.html" style="margin-top:12px;">📄 Read Full Policy</a>
   </div>
 
-  <!-- Feedback -->
   <div class="card searchable" id="feedback">
     <h2>💬 Feedback Form</h2>
     <p>Share your thoughts, suggestions, or report issues.</p>
@@ -1444,13 +1253,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 </div>
 
-<!-- Footer -->
 <footer>
   <div class="footer-content">
     <div class="footer-top">
       <div class="footer-brand">
         <h3>🎓 KES Updates</h3>
-        <p>Independent Student Portal for KES Shroff College. Stay updated with notices, exams, fees, and more.</p>
+        <p>Independent Student Portal for KES Shroff College</p>
       </div>
       <div class="footer-links">
         <h4>Quick Links</h4>
@@ -1469,32 +1277,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   </div>
 </footer>
 
-<!-- Back to Top -->
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
-
-<!-- Bottom Nav (Mobile) -->
-<nav class="bottom-nav" id="bottomNav">
-  <a href="#top" class="active" data-section="top">
-    <span class="nav-icon">🏠</span>
-    <span class="nav-label">Home</span>
-  </a>
-  <a href="#notices" data-section="notices">
-    <span class="nav-icon">📢</span>
-    <span class="nav-label">Notices</span>
-  </a>
-  <a href="#erp" data-section="erp">
-    <span class="nav-icon">💳</span>
-    <span class="nav-label">ERP</span>
-  </a>
-  <a href="tools.html">
-    <span class="nav-icon">🧮</span>
-    <span class="nav-label">Tools</span>
-  </a>
-  <a href="#feedback" data-section="feedback">
-    <span class="nav-icon">💬</span>
-    <span class="nav-label">Feedback</span>
-  </a>
-</nav>
 
 <!-- ============ DONATION BAR - START ============ -->
 <div class="donation-bar">
@@ -1539,9 +1322,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
     if (typeof gtag === 'function') {
       gtag('event', 'donate_bar_click', trackData);
-      console.log('📊 GA4 Event Sent:', trackData);
-    } else {
-      console.warn('⚠️ GA4 not loaded yet. Data cached locally.');
     }
 
     try {
@@ -1550,20 +1330,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
       history.push(trackData);
       if (history.length > 500) history = history.slice(-500);
       localStorage.setItem(key, JSON.stringify(history));
-    } catch(e) { console.warn('LocalStorage error:', e); }
-
-    console.log('🌳 Plant Now Click Tracked!');
-    console.log('📄 Page:', trackData.page_path);
-    console.log('⏰ Time:', new Date().toLocaleString());
-    console.log('📱 Device:', trackData.device_type);
-    console.log('🔗 Source:', trackData.source);
+    } catch(e) {}
   });
 })();
 </script>
 <!-- ============ DONATION BAR - END ============ -->
 
 <script>
-/* ============ THEME ============ */
 function setTheme(mode) {
   document.body.classList.toggle('dark', mode === 'dark');
   localStorage.setItem('theme', mode);
@@ -1576,7 +1349,6 @@ function toggleTheme() {
   showToast(isDark ? '☀️ Light mode' : '🌙 Dark mode');
 }
 
-/* ============ TOAST ============ */
 function showToast(msg, duration = 1500) {
   const old = document.querySelector('.toast');
   if (old) old.remove();
@@ -1587,7 +1359,6 @@ function showToast(msg, duration = 1500) {
   setTimeout(() => t.remove(), duration);
 }
 
-/* ============ MENU ============ */
 function toggleMenu() {
   document.getElementById('sidebar').classList.toggle('active');
   document.getElementById('overlay').classList.toggle('active');
@@ -1603,13 +1374,11 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.getElementById('sidebar').classList.contains('active')) toggleMenu();
 });
 
-/* ============ COPY EMAIL ============ */
 function copyEmail() {
   navigator.clipboard.writeText('kesupdatess@gmail.com')
     .then(() => showToast('📋 Email copied!'));
 }
 
-/* ============ SEARCH ============ */
 const suggestions = ['Notices', 'ERP', 'Library', 'Fees', 'Papers', 'Academic', 'Cutoff', 'Hall Ticket'];
 
 function showSuggestions() {
@@ -1630,7 +1399,7 @@ function showSuggestions() {
 }
 
 document.addEventListener('click', e => {
-  if (!e.target.closest('.search-box')) {
+  if (!e.target.closest('.search-wrapper')) {
     document.getElementById('searchSuggestions').classList.remove('active');
   }
 });
@@ -1648,34 +1417,13 @@ function doSearch() {
 
 document.getElementById('searchInput').addEventListener('input', doSearch);
 
-/* ============ SCROLL ============ */
 window.addEventListener('scroll', () => {
   const scrolled = window.scrollY;
   const total = document.documentElement.scrollHeight - window.innerHeight;
   document.getElementById('scrollProgress').style.width = ((scrolled / total) * 100) + '%';
   document.getElementById('backToTop').classList.toggle('visible', scrolled > 300);
-  updateBottomNav();
 });
 
-function updateBottomNav() {
-  const sections = ['notices', 'erp', 'feedback'];
-  const navLinks = document.querySelectorAll('.bottom-nav a[data-section]');
-  let current = 'top';
-  
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      if (rect.top <= 150) current = id;
-    }
-  });
-  
-  navLinks.forEach(link => {
-    link.classList.toggle('active', link.dataset.section === current);
-  });
-}
-
-/* ============ COUNTDOWN ============ */
 function updateCountdowns() {
   const examDate = new Date('2026-08-18T09:00:00');
   const now = new Date();
@@ -1721,14 +1469,12 @@ function updateCountdowns() {
   else if (days <= 7) { badge.textContent = 'SOON'; badge.style.background = 'var(--warning)'; }
 }
 
-/* ============ INIT ============ */
 window.addEventListener('load', () => {
   setTheme(localStorage.getItem('theme') || 'light');
   updateCountdowns();
   setInterval(updateCountdowns, 1000);
 });
 
-/* ============ GA4 CLICK TRACKING ============ */
 document.addEventListener('click', e => {
   const link = e.target.closest('a');
   if (!link || typeof gtag !== 'function') return;
