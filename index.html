@@ -1,139 +1,1744 @@
-<div class="cutoff-card">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KES Updates | Student Portal</title>
+<meta name="description" content="KES Updates - Student portal for notices, academic info, fees, cutoff, question papers, ERP and library services.">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7KVLBY669"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H7KVLBY669');
+</script>
+
+<!-- OG Meta Tags -->
+<meta property="og:title" content="KES Updates | Student Portal">
+<meta property="og:description" content="Notices, fees, cutoff, ERP, library and more — all in one place for KES students.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kesupdatess.github.io/kes-Updatess/">
+<meta property="og:image" content="https://kesupdatess.github.io/kes-Updatess/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-.cutoff-card{
-background:linear-gradient(135deg,#0f172a,#1e293b);
-padding:22px;
-border-radius:20px;
-margin-bottom:22px;
-box-shadow:0 12px 35px rgba(0,0,0,0.35);
-overflow-x:auto;
+/* ============ VARIABLES ============ */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-light: #dbeafe;
+  --primary-bg: #eff6ff;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --shadow: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.08);
+  --success: #059669;
+  --danger: #dc2626;
+  --warning: #d97706;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 20px;
 }
 
-.cutoff-card h2{
-margin-bottom:18px;
-font-size:24px;
-color:#ffffff;
-text-align:center;
+body.dark {
+  --primary: #60a5fa;
+  --primary-dark: #93c5fd;
+  --primary-light: #1e3a8a;
+  --primary-bg: #1e293b;
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --border-hover: #475569;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.5);
 }
 
-.cutoff-card h3{
-margin-top:20px;
-margin-bottom:10px;
-color:#a78bfa;
-font-size:18px;
+/* ============ RESET ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  transition: background 0.25s, color 0.25s;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 100px;
 }
 
-.cutoff-card table{
-width:100%;
-border-collapse:collapse;
-margin-bottom:15px;
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 10%, rgba(37,99,235,0.04) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(37,99,235,0.03) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.cutoff-card th,
-.cutoff-card td{
-border:1px solid rgba(255,255,255,0.15);
-padding:10px;
-font-size:14px;
-text-align:center;
+body.dark::before {
+  background-image: 
+    radial-gradient(circle at 20% 10%, rgba(96,165,250,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(96,165,250,0.04) 0%, transparent 40%);
 }
 
-.cutoff-card th{
-background:linear-gradient(135deg,#2563eb,#7c3aed);
-color:#ffffff;
-font-weight:600;
+/* ============ LAYOUT ============ */
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+  position: relative;
+  z-index: 1;
 }
 
-.cutoff-card td{
-background:#ffffff;
-color:#0f172a;
+/* ============ TOP BAR ============ */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100;
+  backdrop-filter: blur(12px);
 }
 
-.cutoff-card tbody tr:nth-child(even) td{
-background:#f8fafc;
+.top-bar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
 }
 
-.cutoff-card tbody tr:hover td{
-background:#e0e7ff;
-transition:0.3s;
+.top-bar-brand span:first-child { font-size: 1.3rem; }
+
+.top-bar-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
 
-@media(max-width:768px){
-.cutoff-card th,
-.cutoff-card td{
-font-size:11px;
-padding:7px;
-}
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  background: var(--primary-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text);
+  transition: all 0.15s;
 }
 
-@media(max-width:480px){
-.cutoff-card th,
-.cutoff-card td{
-font-size:10px;
-padding:6px;
+.icon-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
 }
+
+/* ============ PAGE HEADER ============ */
+.page-header {
+  margin-top: 72px;
+  padding: 24px 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.page-header .logo {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.page-header h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.page-header .instagram-btn { margin-top: 12px; }
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); box-shadow: var(--shadow-md); }
+
+.btn-outline {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+.btn-full { width: 100%; padding: 12px; }
+
+.btn-danger { background: var(--danger); color: white; }
+.btn-success { background: var(--success); color: white; }
+.btn-warning { background: var(--warning); color: white; }
+
+.btn-sm { padding: 7px 14px; font-size: 0.8rem; }
+
+/* ============ CARDS ============ */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  transition: all 0.2s;
+  position: relative;
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.card h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin: 8px 0;
+}
+
+.card-featured {
+  border-left: 3px solid var(--primary);
+  background: linear-gradient(135deg, var(--card), var(--primary-bg));
+}
+
+/* ============ LINK LIST ============ */
+.link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.link-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  background: var(--primary-bg);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.88rem;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+
+.link-list a:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  transform: translateX(2px);
+}
+
+.link-list a .arrow {
+  opacity: 0;
+  transition: all 0.2s;
+  font-size: 0.8rem;
+}
+
+.link-list a:hover .arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* ============ FEATURE LIST ============ */
+.feature-list {
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.feature-list li {
+  padding: 11px 14px;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.feature-list li:last-child { border-bottom: none; }
+.feature-list li:hover { background: var(--primary-bg); }
+
+.feature-list a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+}
+.feature-list a:hover { color: var(--primary); }
+
+/* ============ INPUTS ============ */
+input, select, textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: var(--card);
+  color: var(--text);
+  transition: all 0.15s;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+input::placeholder, textarea::placeholder { color: var(--text-muted); }
+
+label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.form-group { margin-bottom: 12px; }
+
+/* ============ TICKER ============ */
+.ticker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.ticker-label {
+  background: var(--danger);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ticker-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.ticker-content {
+  overflow: hidden;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.ticker-text {
+  display: inline-block;
+  animation: scroll 40s linear infinite;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding-left: 100%;
+  font-weight: 500;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* ============ SEARCH ============ */
+.search-wrapper {
+  position: sticky;
+  top: 56px;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(12px);
+  padding: 10px 0;
+  margin: 0 -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 10px;
+}
+
+.search-box { position: relative; }
+
+.search-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.search-input-wrap input {
+  padding-left: 40px;
+  padding-right: 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.search-input-wrap input:focus {
+  box-shadow: var(--shadow-md), 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.search-suggestions {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  z-index: 10;
+  flex-wrap: wrap;
+  gap: 6px;
+  box-shadow: var(--shadow-md);
+}
+
+.search-suggestions.active { display: flex; }
+
+.search-suggestions span {
+  background: var(--primary-bg);
+  color: var(--primary-dark);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+
+.search-suggestions span:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.no-results {
+  display: none;
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.no-results.active { display: block; }
+
+/* ============ COUNTDOWN ============ */
+.countdown-card {
+  background: linear-gradient(135deg, var(--card), var(--primary-bg));
+  border: 1px solid var(--primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--danger));
+}
+
+.countdown-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.countdown-badge {
+  background: var(--danger);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.countdown-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+.countdown-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.countdown-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.countdown-unit {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 6px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.countdown-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+.countdown-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+
+.countdown-note .highlight {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* ============ TOOLS GRID ============ */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.tools-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.tool-card {
+  padding: 16px 12px;
+  background: var(--primary-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.tool-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  background: var(--card);
+}
+
+.tool-icon { 
+  font-size: 1.6rem; 
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.tool-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--primary-dark);
+  margin-bottom: 4px;
+}
+
+.tool-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* ============ EMAIL BOX ============ */
+.email-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: var(--primary-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+
+.email-box .email {
+  font-weight: 600;
+  color: var(--primary-dark);
+  font-size: 0.88rem;
+  word-break: break-all;
+}
+
+.email-actions { display: flex; gap: 6px; }
+
+/* ============ INSTAGRAM BUTTON ============ */
+.instagram-btn {
+  background: linear-gradient(135deg, #E1306C, #C13584, #833AB4) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.instagram-btn:hover { opacity: 0.95; }
+
+.instagram-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 270px;
+  height: 100%;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 70px 14px 20px;
+  overflow-y: auto;
+  z-index: 1001;
+  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sidebar.active { left: 0; }
+
+.sidebar-header {
+  padding: 0 10px 14px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+
+.sidebar-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sidebar-header p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.sidebar a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar a:hover { 
+  background: var(--primary-bg); 
+  color: var(--primary-dark);
+  transform: translateX(2px);
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+
+/* ============ OVERLAY ============ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  display: none;
+  z-index: 1000;
+}
+
+.overlay.active { display: block; }
+
+/* ============ BACK TO TOP ============ */
+.back-to-top {
+  position: fixed;
+  bottom: 100px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s;
+  z-index: 998;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+  font-size: 18px;
+}
+
+.back-to-top.visible { opacity: 1; pointer-events: all; }
+.back-to-top:hover { transform: translateY(-3px); }
+
+/* ============ BOTTOM NAV ============ */
+.bottom-nav {
+  position: fixed;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  background: color-mix(in srgb, var(--card) 90%, transparent);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  padding: 8px 4px;
+  display: none;
+  justify-content: space-around;
+  z-index: 997;
+}
+
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 10px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+  flex: 1;
+  max-width: 80px;
+}
+
+.bottom-nav a .nav-icon {
+  font-size: 20px;
+  transition: transform 0.2s;
+}
+
+.bottom-nav a .nav-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.bottom-nav a:hover, .bottom-nav a.active {
+  color: var(--primary);
+}
+
+.bottom-nav a.active .nav-icon {
+  transform: translateY(-2px);
+}
+
+/* ============ FOOTER ============ */
+footer {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 30px 16px;
+  margin-top: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-content {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.footer-brand h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-brand p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.footer-links h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.15s;
+}
+
+.footer-links a:hover { color: var(--primary); }
+
+.footer-bottom {
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ============ TOAST ============ */
+.toast {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--bg);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 2000;
+  animation: toastIn 0.2s;
+  box-shadow: var(--shadow-md);
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ============ WHATSAPP ============ */
+.whatsapp-btn {
+  background: #25D366 !important;
+  color: white !important;
+}
+
+/* ============ SCROLL PROGRESS ============ */
+.scroll-progress {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), #8b5cf6);
+  z-index: 1100;
+  width: 0%;
+  transition: width 0.1s;
+}
+
+/* ============ DONATION BAR ============ */
+.donation-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: white;
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+  box-shadow: 0 -4px 20px rgba(5, 150, 105, 0.25);
+  z-index: 999;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.donation-bar-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.donation-bar-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.donation-bar-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.donation-bar-title .tree-icon {
+  font-size: 1.25rem;
+  animation: sway 3s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.donation-bar-subtitle {
+  font-size: 0.73rem;
+  font-weight: 500;
+  opacity: 0.95;
+  line-height: 1.3;
+}
+
+.donation-bar-btn {
+  background: white;
+  color: #059669;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.donation-bar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 640px) {
+  body { font-size: 14px; }
+  .page-header h1 { font-size: 1.3rem; }
+  .page-header .logo { font-size: 2rem; }
+  .card { padding: 16px; }
+  .card h2 { font-size: 1rem; }
+  .countdown-num { font-size: 1.25rem; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .tools-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .footer-top { grid-template-columns: 1fr; gap: 16px; }
+  .bottom-nav { display: flex; }
+  .back-to-top { bottom: 180px; }
+  
+  .donation-bar { padding: 12px 14px calc(12px + env(safe-area-inset-bottom)); }
+  .donation-bar-inner { flex-direction: column; text-align: center; gap: 10px; }
+  .donation-bar-title { font-size: 0.85rem; justify-content: center; }
+  .donation-bar-subtitle { font-size: 0.7rem; }
+  .donation-bar-btn { width: 100%; justify-content: center; padding: 10px 16px; font-size: 0.82rem; }
+}
+
+@media (min-width: 641px) {
+  .bottom-nav { display: none; }
+  .back-to-top { bottom: 30px; }
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
 }
 </style>
+</head>
 
-<h2>📌 Junior College Cut-Offs</h2>
+<body>
 
-<h3>FYJC – AIDED</h3>
-<table>
-<tr>
-<th>Quota</th>
-<th>Cut Off %</th>
-</tr>
-<tr>
-<td>Govt. Quota</td>
-<td>85.00%</td>
-</tr>
-<tr>
-<td>Guj. Minority Quota</td>
-<td>80.00%</td>
-</tr>
-<tr>
-<td>In-House Quota</td>
-<td>72.00%</td>
-</tr>
-</table>
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
 
-<h3>FYJC – UNAIDED Self Finance</h3>
-<table>
-<tr>
-<th>Quota</th>
-<th>Cut Off %</th>
-</tr>
-<tr>
-<td>Govt. Quota</td>
-<td>70.00%</td>
-</tr>
-<tr>
-<td>Guj. Minority Quota</td>
-<td>68.00%</td>
-</tr>
-<tr>
-<td>In-House Quota</td>
-<td>-</td>
-</tr>
-</table>
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-brand">
+    <span>🎓</span>
+    <span>KES Updates</span>
+  </div>
+  <div class="top-bar-actions">
+    <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
+    <button class="icon-btn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  </div>
+</div>
 
-<h3>FYJC – ARTS</h3>
-<table>
-<tr>
-<th>Quota</th>
-<th>Cut Off %</th>
-</tr>
-<tr>
-<td>Govt. Quota</td>
-<td>70.00%</td>
-</tr>
-<tr>
-<td>Guj. Minority Quota</td>
-<td>60.00%</td>
-</tr>
-<tr>
-<td>In-House Quota</td>
-<td>-</td>
-</tr>
-</table>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3>🎓 KES Updates</h3>
+    <p>Student Portal Navigation</p>
+  </div>
+  <a href="#notices">📢 Notices</a>
+  <a href="#student">🧑‍🎓 Student Corner</a>
+  <a href="#academic">📚 Academic Info</a>
+  <a href="#exam-countdown">⏰ Exam Countdown</a>
+  <a href="#upcoming-events">📅 Upcoming Events</a>
+  <div class="sidebar-divider"></div>
+  <a href="#papers">📄 Question Papers</a>
+  <a href="#erp">💳 ERP Portal</a>
+  <a href="#library">📚 Library</a>
+  <a href="tools.html">🧮 Tools</a>
+  <div class="sidebar-divider"></div>
+  <a href="college.html">🏛️ College Details</a>
+  <a href="events.html">📅 All Events</a>
+  <div class="sidebar-divider"></div>
+  <a href="#collab">🤝 Collaboration</a>
+  <a href="#about">ℹ️ About</a>
+  <a href="#our-policy">📄 Policy</a>
+  <a href="#feedback">💬 Feedback</a>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="logo">🎓</div>
+    <h1>KES Updates</h1>
+    <p>Independent Student Portal</p>
+    <a class="btn instagram-btn" href="https://instagram.com/kes_updatess" target="_blank" rel="noopener noreferrer">
+      <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
+        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+        <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+      </svg>
+      Follow Instagram
+    </a>
+  </header>
+
+  <!-- Ticker -->
+  <div class="ticker">
+    <span class="ticker-label">LIVE</span>
+    <div class="ticker-content">
+      <span class="ticker-text">📢 Check latest notices • 💳 Pay fees via ERP Portal • 📚 Academic Calendar 2026-27 available • 📄 Previous Year Question Papers • 🤝 Collaborate: kesupdatess@gmail.com</span>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-wrapper">
+    <div class="search-box">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search notices, fees, ERP, library..." onfocus="showSuggestions()" autocomplete="off">
+      </div>
+      <div id="searchSuggestions" class="search-suggestions"></div>
+    </div>
+  </div>
+  <p id="noResults" class="no-results">😕 No matching results found.</p>
+
+  <!-- Notices -->
+  <div class="card card-featured searchable" id="notices">
+    <h2>📢 Important Notices</h2>
+    <div class="link-list">
+      <a href="https://kessc.edu.in/notices/" target="_blank" rel="noopener noreferrer">
+        <span>🎓 Degree College Notices</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="https://kesjrsanghvi.com/enotices/" target="_blank" rel="noopener noreferrer">
+        <span>🏫 Junior College Notices</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <a class="btn whatsapp-btn btn-full" href="https://wa.me/?text=Check%20out%20KES%20Updates%3A%20https%3A%2F%2Fkesupdatess.github.io%2Fkes-Updatess%2F" target="_blank" rel="noopener noreferrer">📱 Share on WhatsApp</a>
+  </div>
+
+  <!-- Student Corner -->
+  <div class="card searchable" id="student">
+    <h2>🧑‍🎓 Student Corner</h2>
+    <div class="link-list">
+      <a href="https://forms.gle/USmraK6T7EqH7UU9A" target="_blank" rel="noopener noreferrer">
+        <span>😂 Submit Meme</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="mailto:kesupdatess@gmail.com?subject=Ask%20Doubt">
+        <span>❓ Ask Doubt / Support</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdpkELaLHjghZzWYR6EPYotuRvRDa3yQq3r5y2EHkRqrQOG8g/viewform" target="_blank" rel="noopener noreferrer" style="background:var(--danger);color:white;">
+        <span>🚨 Facing issue in college? Tell us!</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <p>Got a doubt, meme, or facing any issue? We're here to help!</p>
+  </div>
+
+  <!-- Academic Info -->
+  <div class="card searchable" id="academic">
+    <h2>📚 Academic Info</h2>
+    <div class="link-list">
+      <a href="https://drive.google.com/file/d/1F9UqN7SbvUJEaWOy7jtvoiu1dNkEpqVX/view" target="_blank" rel="noopener noreferrer">
+        <span>📅 Academic Calendar 2026-27</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1vYEIClJD7QRGKD0ANY-XlPPUl-h9RN-f/view" target="_blank" rel="noopener noreferrer">
+        <span>🏫 Junior College Fees Structure</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1VZeVNJ06mvhjIu6u6YeIpQzjxx2GiduN/view" target="_blank" rel="noopener noreferrer">
+        <span>🎓 Degree College Fees Structure</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1QCLLe0cetbMmHujWD_AL95FE70TCJrF5/view" target="_blank" rel="noopener noreferrer">
+        <span>📊 Junior College Cutoff List</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <p>All academic documents in one place.</p>
+  </div>
+
+  <!-- Exam Countdown -->
+  <div class="card countdown-card searchable" id="exam-countdown">
+    <div class="countdown-header">
+      <span class="countdown-badge" id="countdownBadge">UPCOMING</span>
+      <span class="countdown-title">Unit Test for Term I</span>
+    </div>
+    <p class="countdown-subtitle">🎓 Degree College • As per Academic Calendar 2026-27</p>
+    <div class="countdown-grid">
+      <div class="countdown-unit">
+        <div class="countdown-num" id="cd-days">--</div>
+        <div class="countdown-label">Days</div>
+      </div>
+      <div class="countdown-unit">
+        <div class="countdown-num" id="cd-hours">--</div>
+        <div class="countdown-label">Hours</div>
+      </div>
+      <div class="countdown-unit">
+        <div class="countdown-num" id="cd-mins">--</div>
+        <div class="countdown-label">Mins</div>
+      </div>
+      <div class="countdown-unit">
+        <div class="countdown-num" id="cd-secs">--</div>
+        <div class="countdown-label">Secs</div>
+      </div>
+    </div>
+    <p class="countdown-note">📅 Expected: <span class="highlight" id="examDate">August 18, 2026</span> • Timetable subject to change</p>
+  </div>
+
+  <!-- Upcoming Events -->
+  <div class="card searchable" id="upcoming-events">
+    <h2>📅 Upcoming Event</h2>
+    <div style="background:var(--primary-bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:8px 0;">
+      <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:10px;">
+        <div style="flex:1;min-width:200px;">
+          <div style="font-weight:700;font-size:0.95rem;color:var(--text);">
+            📝 Unit Test for Term I
+          </div>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">📅 August 18 - 21, 2026 • Degree</div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--danger);margin-top:6px;" id="home-event-cd"></div>
+        </div>
+      </div>
+    </div>
+    <a class="btn btn-primary btn-full" href="events.html">📅 View All Upcoming Events</a>
+  </div>
+
+  <!-- Question Papers -->
+  <div class="card searchable" id="papers">
+    <h2>📄 Question Papers</h2>
+    <div class="link-list">
+      <a href="https://kessclibrary.wixsite.com/library/copy-of-question-papers" target="_blank" rel="noopener noreferrer">
+        <span>📝 Previous Year Question Papers</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <ul class="feature-list">
+      <li>🏫 <a href="https://kessclibrary.wixsite.com/library/question-paper-junior" target="_blank" rel="noopener noreferrer">Junior Question Papers</a></li>
+      <li>🎓 <a href="https://kessclibrary.wixsite.com/library/question-paper-ug" target="_blank" rel="noopener noreferrer">UG Question Papers</a></li>
+      <li>📘 <a href="https://kessclibrary.wixsite.com/library/question-paper-pg" target="_blank" rel="noopener noreferrer">PG Question Papers</a></li>
+      <li>📗 <a href="https://kessclibrary.wixsite.com/library/copy-of-aicte-pg-question-papers" target="_blank" rel="noopener noreferrer">AICTE UG Question Papers</a></li>
+      <li>📙 <a href="https://kessclibrary.wixsite.com/library/copy-of-ug-question-papers" target="_blank" rel="noopener noreferrer">AICTE PG Question Papers</a></li>
+    </ul>
+    <p>Semester-wise papers for exam preparation.</p>
+  </div>
+
+  <!-- Tools -->
+  <div class="card searchable" id="tools-link">
+    <h2>🧮 Student Tools</h2>
+    <p>Powerful calculators designed for KES students.</p>
+    <div class="tools-grid">
+      <a href="tools.html" class="tool-card">
+        <div class="tool-icon">🧮</div>
+        <div class="tool-name">Attendance Calculator</div>
+        <div class="tool-desc">Check %, track progress</div>
+      </a>
+      <a href="tools.html" class="tool-card">
+        <div class="tool-icon">💰</div>
+        <div class="tool-name">Fees Calculator</div>
+        <div class="tool-desc">Know exact fees instantly</div>
+      </a>
+    </div>
+    <a class="btn btn-primary btn-full" href="tools.html">🚀 Open Student Tools</a>
+  </div>
+
+  <!-- ERP -->
+  <div class="card searchable" id="erp">
+    <h2>💳 ERP Portal</h2>
+    <div class="link-list">
+      <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">
+        <span>🔗 Open ERP Portal</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">
+        <span>🧾 Download Hall Ticket</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <ul class="feature-list">
+      <li>💰 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Pay Fees & Download Receipt</a></li>
+      <li>📊 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Check Result</a></li>
+      <li>📝 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Apply for Credit Course</a></li>
+      <li>📋 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Admission Form</a></li>
+      <li>🎯 <a href="https://cimsstudentnewui.mastersofterp.in/" target="_blank" rel="noopener noreferrer">Apply for ATKT</a></li>
+    </ul>
+    <p>Official ERP system for all student services.</p>
+  </div>
+
+  <!-- Library -->
+  <div class="card searchable" id="library">
+    <h2>📚 KES Shroff College Library</h2>
+    <div class="link-list">
+      <a href="https://kessclibrary.ourlib.in/" target="_blank" rel="noopener noreferrer">
+        <span>📖 Library Catalogue</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <p>Books, catalogue search, and academic material.</p>
+  </div>
+
+  <!-- College Details -->
+  <div class="card searchable" id="college-details">
+    <h2>🏛️ College Details</h2>
+    <p>Contact info, addresses & locations for all KES buildings.</p>
+    <div class="tools-grid tools-grid-3">
+      <a href="college.html" class="tool-card">
+        <div class="tool-icon">🏫</div>
+        <div class="tool-name">Main Campus</div>
+        <div class="tool-desc">Arts & Commerce</div>
+      </a>
+      <a href="college.html" class="tool-card">
+        <div class="tool-icon">⚖️</div>
+        <div class="tool-name">Annex-1</div>
+        <div class="tool-desc">Law College</div>
+      </a>
+      <a href="college.html" class="tool-card">
+        <div class="tool-icon">🌍</div>
+        <div class="tool-name">Annex-2</div>
+        <div class="tool-desc">International</div>
+      </a>
+    </div>
+    <a class="btn btn-primary btn-full" href="college.html">🏛️ View Full Details</a>
+  </div>
+
+  <!-- Collaboration -->
+  <div class="card searchable" id="collab">
+    <h2>🤝 Collaboration</h2>
+    <p>Want to collaborate with KES Updates? Reach out!</p>
+    <div class="email-box">
+      <span class="email">📧 kesupdatess@gmail.com</span>
+      <div class="email-actions">
+        <a class="btn btn-primary btn-sm" href="mailto:kesupdatess@gmail.com?subject=Collaboration%20-%20KES%20Updates">✉️ Mail</a>
+        <button class="btn btn-success btn-sm" onclick="copyEmail()">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="card" id="about">
+    <h2>ℹ️ About KES Updates</h2>
+    <p>KES Updates is an independent, student-managed page created to share notices, resources, and fun campus content. We are not an official college page, but our goal is to keep students informed, connected, and entertained 💙.</p>
+    <div style="margin-top:12px;padding:14px;background:var(--primary-bg);border-radius:var(--radius-sm);border:1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span>📧</span>
+        <a href="mailto:kesupdatess@gmail.com" style="color:var(--primary);font-weight:600;text-decoration:none;font-size:0.88rem;">kesupdatess@gmail.com</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span>📸</span>
+        <a href="https://instagram.com/kes_updatess" style="color:var(--primary);font-weight:600;text-decoration:none;font-size:0.88rem;">@kes_updatess</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span>🌐</span>
+        <span style="color:var(--text-muted);font-size:0.88rem;">kesupdatess.github.io/kes-Updatess</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Policy -->
+  <div class="card searchable" id="our-policy">
+    <h2>📄 Policy & Disclaimer</h2>
+    <p>KES Updates operates with full transparency and legal compliance. We are a student-managed platform — not an official college body — sharing information in good faith for students.</p>
+    <a class="btn btn-outline btn-full" href="policy.html" style="margin-top:12px;">📄 Read Full Policy</a>
+  </div>
+
+  <!-- Feedback -->
+  <div class="card searchable" id="feedback">
+    <h2>💬 Feedback Form</h2>
+    <p>Share your thoughts, suggestions, or report issues.</p>
+    <form action="https://formspree.io/f/xaqzreol" method="POST" style="margin-top:12px;">
+      <div class="tools-grid">
+        <div class="form-group">
+          <label for="feedbackName">Your Name</label>
+          <input type="text" id="feedbackName" name="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label for="feedbackEmail">Email</label>
+          <input type="email" id="feedbackEmail" name="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="feedbackCategory">Category</label>
+        <select id="feedbackCategory" name="category" required>
+          <option value="" disabled selected>Select category</option>
+          <option value="suggestion">💡 Suggestion</option>
+          <option value="bug">🐛 Bug Report</option>
+          <option value="feature">✨ Feature Request</option>
+          <option value="content">📄 Content Update</option>
+          <option value="other">📝 Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="feedbackMessage">Your Message</label>
+        <textarea id="feedbackMessage" name="message" rows="4" placeholder="Tell us what you think..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">📨 Submit Feedback</button>
+    </form>
+  </div>
 
 </div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>🎓 KES Updates</h3>
+        <p>Independent Student Portal for KES Shroff College. Stay updated with notices, exams, fees, and more.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#notices">📢 Notices</a></li>
+          <li><a href="#erp">💳 ERP Portal</a></li>
+          <li><a href="tools.html">🧮 Tools</a></li>
+          <li><a href="#papers">📄 Question Papers</a></li>
+          <li><a href="#library">📚 Library</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 KES Updates | Made with 💙 for Students</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- Bottom Nav (Mobile) -->
+<nav class="bottom-nav" id="bottomNav">
+  <a href="#top" class="active" data-section="top">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Home</span>
+  </a>
+  <a href="#notices" data-section="notices">
+    <span class="nav-icon">📢</span>
+    <span class="nav-label">Notices</span>
+  </a>
+  <a href="#erp" data-section="erp">
+    <span class="nav-icon">💳</span>
+    <span class="nav-label">ERP</span>
+  </a>
+  <a href="tools.html">
+    <span class="nav-icon">🧮</span>
+    <span class="nav-label">Tools</span>
+  </a>
+  <a href="#feedback" data-section="feedback">
+    <span class="nav-icon">💬</span>
+    <span class="nav-label">Feedback</span>
+  </a>
+</nav>
+
+<!-- ============ DONATION BAR - START ============ -->
+<div class="donation-bar">
+  <div class="donation-bar-inner">
+    <div class="donation-bar-content">
+      <div class="donation-bar-title">
+        <span class="tree-icon">🌳</span>
+        PLANT A TREE WITH KES UPDATES
+      </div>
+      <div class="donation-bar-subtitle">
+        🎓 Certificate + Receipt | Join Green Mission
+      </div>
+    </div>
+    <a href="https://kesupdatess.github.io/KES-UPDATESS-FOUNDATION/"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="donation-bar-btn"
+       id="donateBarBtn">
+      💚 Plant Now
+    </a>
+  </div>
+</div>
+
+<script>
+(function() {
+  const btn = document.getElementById('donateBarBtn');
+  if (!btn) return;
+
+  btn.addEventListener('click', function() {
+    const trackData = {
+      event_category: 'Donation',
+      event_label: 'Bottom Bar - Plant Now',
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+      page_title: document.title,
+      source: document.referrer || 'Direct',
+      screen_size: `${window.innerWidth}x${window.innerHeight}`,
+      device_type: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
+      timestamp: new Date().toISOString(),
+      value: 1
+    };
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'donate_bar_click', trackData);
+      console.log('📊 GA4 Event Sent:', trackData);
+    } else {
+      console.warn('⚠️ GA4 not loaded yet. Data cached locally.');
+    }
+
+    try {
+      const key = 'kes_donate_clicks_v1';
+      let history = JSON.parse(localStorage.getItem(key) || '[]');
+      history.push(trackData);
+      if (history.length > 500) history = history.slice(-500);
+      localStorage.setItem(key, JSON.stringify(history));
+    } catch(e) { console.warn('LocalStorage error:', e); }
+
+    console.log('🌳 Plant Now Click Tracked!');
+    console.log('📄 Page:', trackData.page_path);
+    console.log('⏰ Time:', new Date().toLocaleString());
+    console.log('📱 Device:', trackData.device_type);
+    console.log('🔗 Source:', trackData.source);
+  });
+})();
+</script>
+<!-- ============ DONATION BAR - END ============ -->
+
+<script>
+/* ============ THEME ============ */
+function setTheme(mode) {
+  document.body.classList.toggle('dark', mode === 'dark');
+  localStorage.setItem('theme', mode);
+  document.getElementById('themeBtn').textContent = mode === 'dark' ? '☀️' : '🌙';
+}
+
+function toggleTheme() {
+  const isDark = document.body.classList.contains('dark');
+  setTheme(isDark ? 'light' : 'dark');
+  showToast(isDark ? '☀️ Light mode' : '🌙 Dark mode');
+}
+
+/* ============ TOAST ============ */
+function showToast(msg, duration = 1500) {
+  const old = document.querySelector('.toast');
+  if (old) old.remove();
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), duration);
+}
+
+/* ============ MENU ============ */
+function toggleMenu() {
+  document.getElementById('sidebar').classList.toggle('active');
+  document.getElementById('overlay').classList.toggle('active');
+}
+
+document.querySelectorAll('.sidebar a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (document.getElementById('sidebar').classList.contains('active')) toggleMenu();
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('sidebar').classList.contains('active')) toggleMenu();
+});
+
+/* ============ COPY EMAIL ============ */
+function copyEmail() {
+  navigator.clipboard.writeText('kesupdatess@gmail.com')
+    .then(() => showToast('📋 Email copied!'));
+}
+
+/* ============ SEARCH ============ */
+const suggestions = ['Notices', 'ERP', 'Library', 'Fees', 'Papers', 'Academic', 'Cutoff', 'Hall Ticket'];
+
+function showSuggestions() {
+  const box = document.getElementById('searchSuggestions');
+  if (box.childElementCount === 0) {
+    suggestions.forEach(s => {
+      const span = document.createElement('span');
+      span.textContent = s;
+      span.onclick = () => {
+        document.getElementById('searchInput').value = s;
+        doSearch();
+        box.classList.remove('active');
+      };
+      box.appendChild(span);
+    });
+  }
+  box.classList.add('active');
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-box')) {
+    document.getElementById('searchSuggestions').classList.remove('active');
+  }
+});
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  let any = false;
+  document.querySelectorAll('.searchable').forEach(card => {
+    const match = !q || card.innerText.toLowerCase().includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) any = true;
+  });
+  document.getElementById('noResults').classList.toggle('active', q.length > 0 && !any);
+}
+
+document.getElementById('searchInput').addEventListener('input', doSearch);
+
+/* ============ SCROLL ============ */
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('scrollProgress').style.width = ((scrolled / total) * 100) + '%';
+  document.getElementById('backToTop').classList.toggle('visible', scrolled > 300);
+  updateBottomNav();
+});
+
+function updateBottomNav() {
+  const sections = ['notices', 'erp', 'feedback'];
+  const navLinks = document.querySelectorAll('.bottom-nav a[data-section]');
+  let current = 'top';
+  
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 150) current = id;
+    }
+  });
+  
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.dataset.section === current);
+  });
+}
+
+/* ============ COUNTDOWN ============ */
+function updateCountdowns() {
+  const examDate = new Date('2026-08-18T09:00:00');
+  const now = new Date();
+  const diff = examDate - now;
+
+  const homeEl = document.getElementById('home-event-cd');
+  if (homeEl) {
+    if (diff <= 0) {
+      homeEl.textContent = '🔴 EXAM IS TODAY!';
+    } else {
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      if (days <= 1) homeEl.textContent = `🔴 ${hours}h left - VERY SOON!`;
+      else if (days <= 7) homeEl.textContent = `⚡ ${days}d ${hours}h left`;
+      else homeEl.textContent = `📅 ${days} days left`;
+    }
+  }
+
+  const daysEl = document.getElementById('cd-days');
+  if (!daysEl) return;
+
+  if (diff <= 0) {
+    daysEl.textContent = '0';
+    document.getElementById('cd-hours').textContent = '0';
+    document.getElementById('cd-mins').textContent = '0';
+    document.getElementById('cd-secs').textContent = '0';
+    document.getElementById('examDate').innerHTML = '<span style="color:var(--danger);font-weight:800;">🔴 EXAM IS TODAY!</span>';
+    return;
+  }
+
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+
+  daysEl.textContent = days;
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+  document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+
+  const badge = document.getElementById('countdownBadge');
+  if (days <= 1) { badge.textContent = 'URGENT'; badge.style.background = 'var(--danger)'; }
+  else if (days <= 7) { badge.textContent = 'SOON'; badge.style.background = 'var(--warning)'; }
+}
+
+/* ============ INIT ============ */
+window.addEventListener('load', () => {
+  setTheme(localStorage.getItem('theme') || 'light');
+  updateCountdowns();
+  setInterval(updateCountdowns, 1000);
+});
+
+/* ============ GA4 CLICK TRACKING ============ */
+document.addEventListener('click', e => {
+  const link = e.target.closest('a');
+  if (!link || typeof gtag !== 'function') return;
+  gtag('event', 'link_click', {
+    link_text: link.innerText.trim().substring(0, 50) || link.getAttribute('href'),
+    link_url: link.getAttribute('href'),
+    page_location: window.location.href
+  });
+});
+</script>
+
+</body>
+</html>
