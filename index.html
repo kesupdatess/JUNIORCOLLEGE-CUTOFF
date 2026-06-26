@@ -6,7 +6,6 @@
 <title>KES Updates | Student Portal</title>
 <meta name="description" content="KES Updates - Student portal for notices, academic info, fees, cutoff, question papers, ERP and library services.">
 
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7KVLBY669"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -15,7 +14,6 @@
   gtag('config', 'G-H7KVLBY669');
 </script>
 
-<!-- OG Meta Tags -->
 <meta property="og:title" content="KES Updates | Student Portal">
 <meta property="og:description" content="Notices, fees, cutoff, ERP, library and more — all in one place for KES students.">
 <meta property="og:type" content="website">
@@ -23,7 +21,6 @@
 <meta property="og:image" content="https://kesupdatess.github.io/kes-Updatess/preview.png">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,12 +91,6 @@ body::before {
   z-index: 0;
 }
 
-body.dark::before {
-  background-image: 
-    radial-gradient(circle at 20% 10%, rgba(96,165,250,0.06) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(96,165,250,0.04) 0%, transparent 40%);
-}
-
 .container {
   max-width: 760px;
   margin: 0 auto;
@@ -135,11 +126,7 @@ body.dark::before {
 
 .top-bar-brand span:first-child { font-size: 1.3rem; }
 
-.top-bar-actions {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
+.top-bar-actions { display: flex; gap: 6px; align-items: center; }
 
 .icon-btn {
   width: 38px;
@@ -170,25 +157,9 @@ body.dark::before {
   margin-bottom: 20px;
 }
 
-.page-header .logo {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
-  display: inline-block;
-}
-
-.page-header h1 {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--text);
-  letter-spacing: -0.5px;
-  margin-bottom: 4px;
-}
-
-.page-header p {
-  color: var(--text-muted);
-  font-size: 0.88rem;
-}
-
+.page-header .logo { font-size: 2.5rem; margin-bottom: 8px; display: inline-block; }
+.page-header h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; }
+.page-header p { color: var(--text-muted); font-size: 0.88rem; }
 .page-header .instagram-btn { margin-top: 12px; }
 
 .btn {
@@ -209,17 +180,10 @@ body.dark::before {
 }
 
 .btn:hover { transform: translateY(-1px); }
-
 .btn-primary { background: var(--primary); color: white; }
 .btn-primary:hover { background: var(--primary-dark); }
-
-.btn-outline {
-  background: var(--card);
-  color: var(--text);
-  border: 1px solid var(--border);
-}
+.btn-outline { background: var(--card); color: var(--text); border: 1px solid var(--border); }
 .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
-
 .btn-full { width: 100%; padding: 12px; }
 .btn-success { background: var(--success); color: white; }
 .btn-danger { background: var(--danger); color: white; }
@@ -243,23 +207,195 @@ body.dark::before {
 .card h2 {
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--text);
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
 }
 
-.card p {
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  margin: 8px 0;
-}
+.card p { color: var(--text-muted); font-size: 0.88rem; margin: 8px 0; }
 
 .card-featured {
   border-left: 3px solid var(--primary);
   background: linear-gradient(135deg, var(--card), var(--primary-bg));
 }
+
+/* ═══════════════════════════════════════════════════════
+   NOTICES SECTION - NEW DESIGN
+   ═══════════════════════════════════════════════════════ */
+
+.notice-college-section {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.notice-college-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 12px;
+  padding-bottom: 0;
+}
+
+.notice-college-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.notice-college-header .college-icon {
+  font-size: 1.3rem;
+}
+
+.notice-college-header h3 {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.notice-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.notice-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.notice-card.pinned {
+  border-left: 3px solid var(--warning);
+  background: linear-gradient(135deg, var(--card), rgba(217, 119, 6, 0.05));
+}
+
+.notice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.notice-category {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cat-admission { background: var(--primary-bg); color: var(--primary); }
+.cat-exam { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
+.cat-event { background: rgba(5, 150, 105, 0.1); color: var(--success); }
+.cat-fees { background: rgba(217, 119, 6, 0.1); color: var(--warning); }
+.cat-general { background: var(--primary-bg); color: var(--text-muted); }
+.cat-announcement { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+.cat-holiday { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+.cat-result { background: rgba(5, 150, 105, 0.1); color: var(--success); }
+
+.notice-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.notice-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.notice-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.notice-pinned-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(217, 119, 6, 0.1);
+  color: var(--warning);
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.notice-img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+}
+
+.notice-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+
+.notice-link-btn:hover { gap: 10px; }
+
+/* ═══════════════════════════════════════════════════════
+   VIEW ALL BUTTON - HAMESHA DIKHEGA
+   ═══════════════════════════════════════════════════════ */
+
+.view-all-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 18px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  margin-top: 14px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.view-all-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+}
+
+.view-all-btn .arrow {
+  transition: transform 0.2s;
+}
+
+.view-all-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ═══════════════════════════════════════════════════════
+   OTHER STYLES
+   ═══════════════════════════════════════════════════════ */
 
 .link-list {
   display: flex;
@@ -300,7 +436,6 @@ body.dark::before {
   transform: translateX(3px);
 }
 
-/* ERP Features List */
 .erp-features {
   list-style: none;
   margin: 14px 0;
@@ -312,7 +447,6 @@ body.dark::before {
 .erp-features li {
   padding: 11px 18px;
   font-size: 0.88rem;
-  color: var(--text);
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -351,7 +485,6 @@ label {
   display: block;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text);
   margin-bottom: 6px;
 }
 
@@ -419,10 +552,7 @@ label {
   z-index: 50;
   background: color-mix(in srgb, var(--bg) 90%, transparent);
   backdrop-filter: blur(12px);
-  padding: 10px 0;
-  margin: 0 -16px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 10px 16px;
   margin-bottom: 10px;
 }
 
@@ -537,17 +667,8 @@ label {
   animation: pulse 1.5s infinite;
 }
 
-.countdown-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.countdown-subtitle {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-bottom: 12px;
-}
+.countdown-title { font-size: 1rem; font-weight: 700; }
+.countdown-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
 
 .countdown-grid {
   display: grid;
@@ -681,7 +802,7 @@ label {
   margin-bottom: 10px;
 }
 
-.sidebar-header h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+.sidebar-header h3 { font-size: 0.95rem; font-weight: 700; }
 .sidebar-header p { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
 
 .sidebar a {
@@ -758,11 +879,9 @@ footer {
   margin-bottom: 20px;
 }
 
-.footer-brand h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.footer-brand h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
 .footer-brand p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
-
-.footer-links h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-
+.footer-links h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 10px; }
 .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
 .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; }
 .footer-links a:hover { color: var(--primary); }
@@ -900,6 +1019,8 @@ footer {
   .donation-bar-title { font-size: 0.85rem; justify-content: center; }
   .donation-bar-subtitle { font-size: 0.7rem; }
   .donation-bar-btn { width: 100%; justify-content: center; padding: 10px 16px; font-size: 0.82rem; }
+  
+  .view-all-btn { font-size: 0.85rem; padding: 12px 14px; }
 }
 
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
@@ -987,19 +1108,55 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   </div>
   <p id="noResults" class="no-results">😕 No matching results found.</p>
 
+  <!-- ═══════════════════════════════════════════════════════
+       NOTICES SECTION - NEW DESIGN WITH PERMANENT VIEW ALL
+       ═══════════════════════════════════════════════════════ -->
   <div class="card card-featured searchable" id="notices">
     <h2>📢 Important Notices</h2>
-    <div class="link-list">
-      <a href="https://kessc.edu.in/notices/" target="_blank" rel="noopener noreferrer">
-        <span>🎓 Degree College Notices</span>
-        <span class="arrow">→</span>
-      </a>
-      <a href="https://kesjrsanghvi.com/enotices/" target="_blank" rel="noopener noreferrer">
-        <span>🏫 Junior College Notices</span>
+    
+    <!-- JUNIOR COLLEGE SECTION -->
+    <div class="notice-college-section">
+      <div class="notice-college-header">
+        <span class="college-icon">🏫</span>
+        <h3>Junior College Notices</h3>
+      </div>
+      
+      <!-- Dynamic notices yahan aayenge (admin se) -->
+      <div id="junior-notices"></div>
+      
+      <!-- YE HAMESHA DIKHEGA - Official Website Link -->
+      <a href="https://kesjrsanghvi.com/enotices/" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="view-all-btn">
+        <span>🌐</span>
+        <span>View All Junior College Notices</span>
         <span class="arrow">→</span>
       </a>
     </div>
-    <a class="btn whatsapp-btn btn-full" href="https://wa.me/?text=Check%20out%20KES%20Updates%3A%20https%3A%2F%2Fkesupdatess.github.io%2Fkes-Updatess%2F" target="_blank" rel="noopener noreferrer">📱 Share on WhatsApp</a>
+
+    <!-- DEGREE COLLEGE SECTION -->
+    <div class="notice-college-section">
+      <div class="notice-college-header">
+        <span class="college-icon">🎓</span>
+        <h3>Degree College Notices</h3>
+      </div>
+      
+      <!-- Dynamic notices yahan aayenge (admin se) -->
+      <div id="degree-notices"></div>
+      
+      <!-- YE HAMESHA DIKHEGA - Official Website Link -->
+      <a href="https://kessc.edu.in/notices/" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="view-all-btn">
+        <span>🌐</span>
+        <span>View All Degree College Notices</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <a class="btn whatsapp-btn btn-full" href="https://wa.me/?text=Check%20out%20KES%20Updates%3A%20https%3A%2F%2Fkesupdatess.github.io%2Fkes-Updatess%2F" target="_blank" rel="noopener noreferrer" style="margin-top:16px;">📱 Share on WhatsApp</a>
   </div>
 
   <div class="card searchable" id="student">
@@ -1076,9 +1233,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <div style="background:var(--primary-bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:8px 0;">
       <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:10px;">
         <div style="flex:1;min-width:200px;">
-          <div style="font-weight:700;font-size:0.95rem;color:var(--text);">
-            📝 Unit Test for Term I
-          </div>
+          <div style="font-weight:700;font-size:0.95rem;">📝 Unit Test for Term I</div>
           <div style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">📅 August 18 - 21, 2026 • Degree</div>
           <div style="font-size:0.8rem;font-weight:600;color:var(--danger);margin-top:6px;" id="home-event-cd"></div>
         </div>
@@ -1087,7 +1242,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <a class="btn btn-primary btn-full" href="events.html">📅 View All Upcoming Events</a>
   </div>
 
-  <!-- QUESTION PAPERS - WITH erp-features LIST -->
   <div class="card searchable" id="papers">
     <h2>📄 Question Papers</h2>
     <div class="link-list">
@@ -1124,7 +1278,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <a class="btn btn-primary btn-full" href="tools.html">🚀 Open Student Tools</a>
   </div>
 
-  <!-- ERP - WITH erp-features LIST -->
   <div class="card searchable" id="erp">
     <h2>💳 ERP Portal</h2>
     <div class="link-list">
@@ -1279,7 +1432,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
-<!-- ============ DONATION BAR - START ============ -->
 <div class="donation-bar">
   <div class="donation-bar-inner">
     <div class="donation-bar-content">
@@ -1334,7 +1486,85 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   });
 })();
 </script>
-<!-- ============ DONATION BAR - END ============ -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DYNAMIC NOTICES - SUPABASE INTEGRATION
+// ═══════════════════════════════════════════════════════
+const SUPABASE_URL = 'https://jbyctjddlbyddzavmczg.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpieWN0amRkbGJ5ZGR6YXZtY3pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNzE2NzYsImV4cCI6MjA5Nzk0NzY3Nn0.klEa0-zSGbHZYA-fYiHYg4ceoL1PQ87gowGEbvVmhqU';
+
+let allNotices = [];
+
+async function loadNotices() {
+  try {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/notices?is_active=eq.true&deleted_at=is.null&order=priority.desc,created_at.desc`, {
+      headers: {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    if (!r.ok) throw new Error('Load failed');
+    allNotices = await r.json();
+    renderNotices();
+  } catch(e) {
+    console.error('Failed to load notices:', e);
+    // Agar error aaye toh bhi "View All" button already HTML mein hai, so kuch nahi karna
+    document.getElementById('junior-notices').innerHTML = '';
+    document.getElementById('degree-notices').innerHTML = '';
+  }
+}
+
+function renderNotices() {
+  // Junior College notices (junior + both)
+  const juniorNotices = allNotices.filter(n => n.college_type === 'junior' || n.college_type === 'both');
+  
+  // Degree College notices (degree + both)
+  const degreeNotices = allNotices.filter(n => n.college_type === 'degree' || n.college_type === 'both');
+
+  // Render Junior - agar notices hain toh dikhao, nahi toh khali chhodo (View All button already hai)
+  document.getElementById('junior-notices').innerHTML = juniorNotices.length
+    ? juniorNotices.map(n => renderNoticeCard(n)).join('')
+    : '';
+
+  // Render Degree - agar notices hain toh dikhao, nahi toh khali chhodo
+  document.getElementById('degree-notices').innerHTML = degreeNotices.length
+    ? degreeNotices.map(n => renderNoticeCard(n)).join('')
+    : '';
+}
+
+function renderNoticeCard(n) {
+  const pinnedBadge = n.is_pinned ? `<div class="notice-pinned-badge">📌 Pinned</div>` : '';
+  const image = n.image_url ? `<img src="${n.image_url}" class="notice-img" alt="${escapeHtml(n.title)}" loading="lazy" />` : '';
+  const link = n.link ? `<a href="${n.link}" target="_blank" class="notice-link-btn">Read more →</a>` : '';
+  
+  return `
+    <a href="${n.link || '#'}" ${n.link ? 'target="_blank" rel="noopener noreferrer"' : ''} class="notice-card ${n.is_pinned ? 'pinned' : ''}" ${!n.link ? 'onclick="event.preventDefault()"' : ''}>
+      ${pinnedBadge}
+      ${image}
+      <div class="notice-header">
+        <span class="notice-category cat-${n.category}">${catIcon(n.category)} ${n.category}</span>
+        <span class="notice-date">${fDate(n.created_at)}</span>
+      </div>
+      <div class="notice-title">${escapeHtml(n.title)}</div>
+      ${n.description ? `<div class="notice-desc">${escapeHtml(n.description)}</div>` : ''}
+      ${link}
+    </a>
+  `;
+}
+
+const CAT_ICONS = {admission:'🎓',exam:'📝',event:'📅',fees:'💰',general:'📢',announcement:'📣',holiday:'🎉',result:'🏆'};
+function catIcon(c){return CAT_ICONS[c]||'📢';}
+function fDate(iso){
+  if(!iso) return '';
+  return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+}
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// Load notices on page load
+loadNotices();
+// Auto-refresh every 30 seconds
+setInterval(loadNotices, 30000);
+</script>
 
 <script>
 function setTheme(mode) {
