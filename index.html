@@ -91,6 +91,12 @@ body::before {
   z-index: 0;
 }
 
+body.dark::before {
+  background-image: 
+    radial-gradient(circle at 20% 10%, rgba(96,165,250,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(96,165,250,0.04) 0%, transparent 40%);
+}
+
 .container {
   max-width: 760px;
   margin: 0 auto;
@@ -221,9 +227,8 @@ body::before {
 }
 
 /* ═══════════════════════════════════════════════════════
-   NOTICES SECTION - NEW DESIGN
+   NOTICES SECTION - UNCHANGED
    ═══════════════════════════════════════════════════════ */
-
 .notice-college-section {
   margin-bottom: 20px;
   padding-bottom: 20px;
@@ -243,15 +248,8 @@ body::before {
   margin-bottom: 14px;
 }
 
-.notice-college-header .college-icon {
-  font-size: 1.3rem;
-}
-
-.notice-college-header h3 {
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: var(--text);
-}
+.notice-college-header .college-icon { font-size: 1.3rem; }
+.notice-college-header h3 { font-size: 0.98rem; font-weight: 700; color: var(--text); }
 
 .notice-card {
   background: var(--card);
@@ -303,24 +301,9 @@ body::before {
 .cat-holiday { background: rgba(249, 115, 22, 0.1); color: #f97316; }
 .cat-result { background: rgba(5, 150, 105, 0.1); color: var(--success); }
 
-.notice-date {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-.notice-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  line-height: 1.4;
-  margin-bottom: 6px;
-}
-
-.notice-desc {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 8px;
-}
+.notice-date { font-size: 0.72rem; color: var(--text-muted); }
+.notice-title { font-size: 0.95rem; font-weight: 700; line-height: 1.4; margin-bottom: 6px; }
+.notice-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 8px; }
 
 .notice-pinned-badge {
   display: inline-flex;
@@ -358,10 +341,6 @@ body::before {
 
 .notice-link-btn:hover { gap: 10px; }
 
-/* ═══════════════════════════════════════════════════════
-   VIEW ALL BUTTON - HAMESHA DIKHEGA
-   ═══════════════════════════════════════════════════════ */
-
 .view-all-btn {
   display: flex;
   align-items: center;
@@ -385,18 +364,261 @@ body::before {
   box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
 }
 
-.view-all-btn .arrow {
-  transition: transform 0.2s;
+.view-all-btn .arrow { transition: transform 0.2s; }
+.view-all-btn:hover .arrow { transform: translateX(4px); }
+
+/* ═══════════════════════════════════════════════════════
+   DYNAMIC EVENTS SECTION - NEW CSS (Matching your style)
+   ═══════════════════════════════════════════════════════ */
+.live-badge {
+  background: var(--danger);
+  color: white;
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.view-all-btn:hover .arrow {
-  transform: translateX(4px);
+.live-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.countdown-card {
+  background: linear-gradient(135deg, var(--card), var(--primary-bg));
+  border: 1px solid var(--primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--danger));
+}
+
+.countdown-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.countdown-badge {
+  background: var(--danger);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.countdown-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+.countdown-title { font-size: 1rem; font-weight: 700; }
+.countdown-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.countdown-unit {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 6px;
+  text-align: center;
+}
+
+.countdown-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+.countdown-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.countdown-note .highlight {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* Events List in Index */
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.event-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--primary-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.event-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 14px 0 0 14px;
+}
+
+.event-item[data-type="exam"]::before { background: var(--danger); }
+.event-item[data-type="vacation"]::before { background: var(--success); }
+.event-item[data-type="event"]::before { background: var(--primary); }
+
+.event-item:hover {
+  transform: translateX(3px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+
+.event-date-box {
+  width: 50px;
+  height: 50px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.event-date-box .month {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+.event-date-box .day {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.event-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.event-info .title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.event-info .meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.event-countdown {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--danger);
+  background: rgba(220,38,38,0.08);
+  padding: 3px 9px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.event-countdown.soon {
+  color: var(--warning);
+  background: rgba(217,119,6,0.1);
+}
+
+.event-countdown.far {
+  color: var(--success);
+  background: rgba(5,150,105,0.1);
+}
+
+.event-arrow {
+  color: var(--primary);
+  font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
 /* ═══════════════════════════════════════════════════════
-   OTHER STYLES
+   OTHER STYLES - UNCHANGED
    ═══════════════════════════════════════════════════════ */
-
 .link-list {
   display: flex;
   flex-direction: column;
@@ -525,11 +747,6 @@ label {
   animation: pulse 1.5s infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
 .ticker-content { overflow: hidden; flex: 1; white-space: nowrap; }
 
 .ticker-text {
@@ -619,101 +836,6 @@ label {
 }
 
 .no-results.active { display: block; }
-
-.countdown-card {
-  background: linear-gradient(135deg, var(--card), var(--primary-bg));
-  border: 1px solid var(--primary);
-  position: relative;
-  overflow: hidden;
-}
-
-.countdown-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--danger));
-}
-
-.countdown-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
-}
-
-.countdown-badge {
-  background: var(--danger);
-  color: white;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.countdown-badge::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
-  animation: pulse 1.5s infinite;
-}
-
-.countdown-title { font-size: 1rem; font-weight: 700; }
-.countdown-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
-
-.countdown-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin: 14px 0;
-}
-
-.countdown-unit {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 6px;
-  text-align: center;
-}
-
-.countdown-num {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--primary-dark);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.countdown-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  margin-top: 4px;
-  letter-spacing: 0.5px;
-}
-
-.countdown-note {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px dashed var(--border);
-}
-
-.countdown-note .highlight {
-  color: var(--danger);
-  font-weight: 700;
-}
 
 .tools-grid {
   display: grid;
@@ -1021,6 +1143,8 @@ footer {
   .donation-bar-btn { width: 100%; justify-content: center; padding: 10px 16px; font-size: 0.82rem; }
   
   .view-all-btn { font-size: 0.85rem; padding: 12px 14px; }
+  .countdown-note { flex-direction: column; align-items: flex-start; }
+  .countdown-note .btn-view-all { width: 100%; justify-content: center; }
 }
 
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
@@ -1032,7 +1156,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   * { animation: none !important; transition: none !important; }
 }
 </style>
-  <script src="analytics-tracker.js"></script>
+
+<script src="analytics-tracker.js"></script>
 </head>
 
 <body>
@@ -1060,7 +1185,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <a href="#notices">📢 Notices</a>
   <a href="#student">🧑‍🎓 Student Corner</a>
   <a href="#academic">📚 Academic Info</a>
-  <a href="#exam-countdown">⏰ Exam Countdown</a>
+  <a href="#featured-event">⏰ Featured Event</a>
   <a href="#upcoming-events">📅 Upcoming Events</a>
   <div class="sidebar-divider"></div>
   <a href="#papers">📄 Question Papers</a>
@@ -1110,22 +1235,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <p id="noResults" class="no-results">😕 No matching results found.</p>
 
   <!-- ═══════════════════════════════════════════════════════
-       NOTICES SECTION - NEW DESIGN WITH PERMANENT VIEW ALL
+       NOTICES SECTION - UNCHANGED
        ═══════════════════════════════════════════════════════ -->
   <div class="card card-featured searchable" id="notices">
     <h2>📢 Important Notices</h2>
     
-    <!-- JUNIOR COLLEGE SECTION -->
     <div class="notice-college-section">
       <div class="notice-college-header">
         <span class="college-icon">🏫</span>
         <h3>Junior College Notices</h3>
       </div>
-      
-      <!-- Dynamic notices yahan aayenge (admin se) -->
       <div id="junior-notices"></div>
-      
-      <!-- YE HAMESHA DIKHEGA - Official Website Link -->
       <a href="https://kesjrsanghvi.com/enotices/" 
          target="_blank" 
          rel="noopener noreferrer"
@@ -1136,17 +1256,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
       </a>
     </div>
 
-    <!-- DEGREE COLLEGE SECTION -->
     <div class="notice-college-section">
       <div class="notice-college-header">
         <span class="college-icon">🎓</span>
         <h3>Degree College Notices</h3>
       </div>
-      
-      <!-- Dynamic notices yahan aayenge (admin se) -->
       <div id="degree-notices"></div>
-      
-      <!-- YE HAMESHA DIKHEGA - Official Website Link -->
       <a href="https://kessc.edu.in/notices/" 
          target="_blank" 
          rel="noopener noreferrer"
@@ -1160,6 +1275,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <a class="btn whatsapp-btn btn-full" href="https://wa.me/?text=Check%20out%20KES%20Updates%3A%20https%3A%2F%2Fkesupdatess.github.io%2Fkes-Updatess%2F" target="_blank" rel="noopener noreferrer" style="margin-top:16px;">📱 Share on WhatsApp</a>
   </div>
 
+  <!-- UNCHANGED SECTIONS -->
   <div class="card searchable" id="student">
     <h2>🧑‍🎓 Student Corner</h2>
     <div class="link-list">
@@ -1202,47 +1318,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <p>All academic documents in one place.</p>
   </div>
 
-  <div class="card countdown-card searchable" id="exam-countdown">
-    <div class="countdown-header">
-      <span class="countdown-badge" id="countdownBadge">UPCOMING</span>
-      <span class="countdown-title">Unit Test for Term I</span>
-    </div>
-    <p class="countdown-subtitle">🎓 Degree College • As per Academic Calendar 2026-27</p>
-    <div class="countdown-grid">
-      <div class="countdown-unit">
-        <div class="countdown-num" id="cd-days">--</div>
-        <div class="countdown-label">Days</div>
-      </div>
-      <div class="countdown-unit">
-        <div class="countdown-num" id="cd-hours">--</div>
-        <div class="countdown-label">Hours</div>
-      </div>
-      <div class="countdown-unit">
-        <div class="countdown-num" id="cd-mins">--</div>
-        <div class="countdown-label">Mins</div>
-      </div>
-      <div class="countdown-unit">
-        <div class="countdown-num" id="cd-secs">--</div>
-        <div class="countdown-label">Secs</div>
-      </div>
-    </div>
-    <p class="countdown-note">📅 Expected: <span class="highlight" id="examDate">August 18, 2026</span> • Timetable subject to change</p>
-  </div>
+  <!-- ═══════════════════════════════════════════════════════
+       🔥 FEATURED EVENT COUNTDOWN - DYNAMIC (Replaces hardcoded)
+       ═══════════════════════════════════════════════════════ -->
+  <div id="featured-event-container"></div>
 
+  <!-- ═══════════════════════════════════════════════════════
+       📅 UPCOMING EVENTS LIST - DYNAMIC (Replaces hardcoded)
+       ═══════════════════════════════════════════════════════ -->
   <div class="card searchable" id="upcoming-events">
-    <h2>📅 Upcoming Event</h2>
-    <div style="background:var(--primary-bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:8px 0;">
-      <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:10px;">
-        <div style="flex:1;min-width:200px;">
-          <div style="font-weight:700;font-size:0.95rem;">📝 Unit Test for Term I</div>
-          <div style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">📅 August 18 - 21, 2026 • Degree</div>
-          <div style="font-size:0.8rem;font-weight:600;color:var(--danger);margin-top:6px;" id="home-event-cd"></div>
-        </div>
-      </div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;">
+      <h2 style="margin:0;">📅 Upcoming Events</h2>
+      <span class="live-badge">Live</span>
+    </div>
+    <p id="events-subtitle">Loading events...</p>
+    <div class="events-list" id="upcoming-events-list">
+      <div style="text-align:center;padding:20px;color:var(--text-muted);">Loading...</div>
     </div>
     <a class="btn btn-primary btn-full" href="events.html">📅 View All Upcoming Events</a>
   </div>
 
+  <!-- UNCHANGED SECTIONS -->
   <div class="card searchable" id="papers">
     <h2>📄 Question Papers</h2>
     <div class="link-list">
@@ -1490,42 +1586,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 <script>
 // ═══════════════════════════════════════════════════════
-// DYNAMIC NOTICES - SUPABASE INTEGRATION
+// DYNAMIC NOTICES - OLD SUPABASE (unchanged)
 // ═══════════════════════════════════════════════════════
-const SUPABASE_URL = 'https://jbyctjddlbyddzavmczg.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpieWN0amRkbGJ5ZGR6YXZtY3pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNzE2NzYsImV4cCI6MjA5Nzk0NzY3Nn0.klEa0-zSGbHZYA-fYiHYg4ceoL1PQ87gowGEbvVmhqU';
+const NOTICES_URL = 'https://jbyctjddlbyddzavmczg.supabase.co';
+const NOTICES_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpieWN0amRkbGJ5ZGR6YXZtY3pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNzE2NzYsImV4cCI6MjA5Nzk0NzY3Nn0.klEa0-zSGbHZYA-fYiHYg4ceoL1PQ87gowGEbvVmhqU';
 
 let allNotices = [];
 
 async function loadNotices() {
   try {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/notices?is_active=eq.true&deleted_at=is.null&order=priority.desc,created_at.desc`, {
-      headers: {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    const r = await fetch(`${NOTICES_URL}/rest/v1/notices?is_active=eq.true&deleted_at=is.null&order=priority.desc,created_at.desc`, {
+      headers: {'apikey':NOTICES_KEY,'Authorization':'Bearer '+NOTICES_KEY}
     });
     if (!r.ok) throw new Error('Load failed');
     allNotices = await r.json();
     renderNotices();
   } catch(e) {
     console.error('Failed to load notices:', e);
-    // Agar error aaye toh bhi "View All" button already HTML mein hai, so kuch nahi karna
     document.getElementById('junior-notices').innerHTML = '';
     document.getElementById('degree-notices').innerHTML = '';
   }
 }
 
 function renderNotices() {
-  // Junior College notices (junior + both)
   const juniorNotices = allNotices.filter(n => n.college_type === 'junior' || n.college_type === 'both');
-  
-  // Degree College notices (degree + both)
   const degreeNotices = allNotices.filter(n => n.college_type === 'degree' || n.college_type === 'both');
 
-  // Render Junior - agar notices hain toh dikhao, nahi toh khali chhodo (View All button already hai)
   document.getElementById('junior-notices').innerHTML = juniorNotices.length
     ? juniorNotices.map(n => renderNoticeCard(n)).join('')
     : '';
 
-  // Render Degree - agar notices hain toh dikhao, nahi toh khali chhodo
   document.getElementById('degree-notices').innerHTML = degreeNotices.length
     ? degreeNotices.map(n => renderNoticeCard(n)).join('')
     : '';
@@ -1561,13 +1651,221 @@ function escapeHtml(s){
   return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-// Load notices on page load
 loadNotices();
-// Auto-refresh every 30 seconds
 setInterval(loadNotices, 30000);
 </script>
 
 <script>
+// ═══════════════════════════════════════════════════════
+// 🆕 DYNAMIC EVENTS - NEW SUPABASE (Only this is new)
+// ═══════════════════════════════════════════════════════
+const EVENTS_URL = 'https://uegdizdnminwhkxcdcle.supabase.co';
+const EVENTS_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlZ2RpemRubWlud2hreGNkY2xlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwODk2MjgsImV4cCI6MjA5NzY2NTYyOH0.2wiAHbaoNoDva_tRseDAywVMu_6AioCGlVLgoVb0d6s';
+
+let allEvents = [];
+
+async function loadEvents() {
+  try {
+    const r = await fetch(`${EVENTS_URL}/rest/v1/events?status=in.(upcoming,ongoing)&order=start_date.asc`, {
+      headers: {'apikey':EVENTS_KEY,'Authorization':'Bearer '+EVENTS_KEY}
+    });
+    if (!r.ok) throw new Error('Load failed');
+    allEvents = await r.json();
+    renderFeaturedEvent();
+    renderUpcomingEventsList();
+  } catch(e) {
+    console.error('Events load error:', e);
+    document.getElementById('featured-event-container').innerHTML = '';
+    document.getElementById('upcoming-events-list').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Unable to load events</div>';
+  }
+}
+
+function renderFeaturedEvent() {
+  const container = document.getElementById('featured-event-container');
+  const featured = allEvents.find(e => e.is_featured) || allEvents[0];
+  
+  if (!featured) {
+    container.innerHTML = '';
+    return;
+  }
+  
+  const start = new Date(featured.start_date);
+  const end = featured.end_date ? new Date(featured.end_date) : null;
+  const now = new Date();
+  const targetDate = new Date(end || start);
+  const diff = targetDate - now;
+  
+  // Badge
+  let badgeText = 'UPCOMING';
+  let badgeBg = 'var(--danger)';
+  
+  if (featured.status === 'ongoing' || (now >= start && end && now <= end)) {
+    badgeText = 'ONGOING';
+    badgeBg = 'var(--warning)';
+  } else if (diff <= 86400000 && diff > 0) {
+    badgeText = 'URGENT';
+    badgeBg = 'var(--danger)';
+  } else if (diff <= 7 * 86400000) {
+    badgeText = 'SOON';
+    badgeBg = 'var(--warning)';
+  }
+  
+  // College label
+  const collegeLabel = featured.college_type === 'degree' ? '🎓 Degree College' : 
+                       featured.college_type === 'junior' ? '🏫 Junior College' : '🎓 Both Colleges';
+  const locationText = featured.location ? ` • 📍 ${featured.location}` : '';
+  
+  // Date text
+  let dateText = `📅 Expected: <span class="highlight">${start.toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'})}</span>`;
+  if (end && start.toDateString() !== end.toDateString()) {
+    dateText = `📅 ${start.toLocaleDateString('en-IN', {day:'numeric', month:'short'})} - ${end.toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'})}`;
+  }
+  
+  // Store target for live countdown
+  window._featuredTarget = targetDate;
+  window._featuredEvent = featured;
+  
+  // Calculate initial countdown
+  const days = Math.max(0, Math.floor(diff / 86400000));
+  const hours = Math.max(0, Math.floor((diff % 86400000) / 3600000));
+  const mins = Math.max(0, Math.floor((diff % 3600000) / 60000));
+  const secs = Math.max(0, Math.floor((diff % 60000) / 1000));
+  
+  container.innerHTML = `
+    <div class="card countdown-card searchable" id="featured-event">
+      <div class="countdown-header">
+        <span class="countdown-badge" id="countdownBadge" style="background:${badgeBg};">${badgeText}</span>
+        <span class="countdown-title">${escapeHtml(featured.title)}</span>
+        ${featured.is_featured ? '<span style="background:rgba(217,119,6,0.1);color:var(--warning);padding:3px 8px;border-radius:99px;font-size:0.68rem;font-weight:700;">⭐ FEATURED</span>' : ''}
+      </div>
+      <p class="countdown-subtitle">${collegeLabel}${locationText}</p>
+      <div class="countdown-grid">
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-days">${days}</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-hours">${String(hours).padStart(2, '0')}</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-mins">${String(mins).padStart(2, '0')}</div>
+          <div class="countdown-label">Mins</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-secs">${String(secs).padStart(2, '0')}</div>
+          <div class="countdown-label">Secs</div>
+        </div>
+      </div>
+      <div class="countdown-note">
+        <span>${dateText} • Timetable subject to change</span>
+        <a href="events.html" class="btn btn-primary btn-sm btn-view-all">📅 View All</a>
+      </div>
+    </div>
+  `;
+}
+
+function renderUpcomingEventsList() {
+  const listContainer = document.getElementById('upcoming-events-list');
+  const subtitle = document.getElementById('events-subtitle');
+  
+  if (!allEvents.length) {
+    listContainer.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">No upcoming events</div>';
+    subtitle.textContent = 'No events scheduled';
+    return;
+  }
+  
+  subtitle.textContent = `Next ${Math.min(3, allEvents.length)} upcoming events • Academic Calendar 2026-27`;
+  
+  const listEvents = allEvents.slice(0, 3);
+  const now = new Date();
+  
+  listContainer.innerHTML = listEvents.map(e => {
+    const d = new Date(e.start_date);
+    const month = d.toLocaleDateString('en-IN', {month:'short'});
+    const day = d.getDate();
+    
+    // Type for color
+    let dataType = 'event';
+    if (e.category === 'exam') dataType = 'exam';
+    else if (e.category === 'holiday') dataType = 'vacation';
+    
+    // College tag
+    const collegeTag = e.college_type === 'degree' ? '🎓 Degree' : 
+                       e.college_type === 'junior' ? '🏫 Junior' : '🎓 Both';
+    
+    // Countdown text
+    const diff = d - now;
+    let countdownText = '';
+    let countdownClass = 'event-countdown';
+    
+    if (diff <= 0) {
+      countdownText = '✅ Started';
+      countdownClass = 'event-countdown far';
+    } else {
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      if (days <= 1) {
+        countdownText = `🔴 ${hours}h left`;
+      } else if (days <= 7) {
+        countdownText = `⚡ ${days}d left`;
+        countdownClass = 'event-countdown soon';
+      } else {
+        countdownText = `📅 ${days} days left`;
+        countdownClass = 'event-countdown far';
+      }
+    }
+    
+    return `
+      <a href="events.html" class="event-item" data-type="${dataType}">
+        <div class="event-date-box">
+          <span class="month">${month}</span>
+          <span class="day">${day}</span>
+        </div>
+        <div class="event-info">
+          <div class="title">${escapeHtml(e.title)}</div>
+          <div class="meta">${collegeTag} • ${d.toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'})}</div>
+          <span class="${countdownClass}">${countdownText}</span>
+        </div>
+        <span class="event-arrow">→</span>
+      </a>
+    `;
+  }).join('');
+}
+
+// Live countdown update (every second)
+function updateFeaturedCountdown() {
+  if (!window._featuredTarget) return;
+  const diff = window._featuredTarget - new Date();
+  
+  if (diff <= 0) {
+    loadEvents(); // Refresh when done
+    return;
+  }
+  
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  
+  const daysEl = document.getElementById('cd-days');
+  if (daysEl) {
+    daysEl.textContent = d;
+    document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+  }
+}
+
+setInterval(updateFeaturedCountdown, 1000);
+loadEvents();
+setInterval(loadEvents, 120000); // Refresh every 2 minutes
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// OTHER FUNCTIONS - UNCHANGED
+// ═══════════════════════════════════════════════════════
 function setTheme(mode) {
   document.body.classList.toggle('dark', mode === 'dark');
   localStorage.setItem('theme', mode);
@@ -1655,55 +1953,8 @@ window.addEventListener('scroll', () => {
   document.getElementById('backToTop').classList.toggle('visible', scrolled > 300);
 });
 
-function updateCountdowns() {
-  const examDate = new Date('2026-08-18T09:00:00');
-  const now = new Date();
-  const diff = examDate - now;
-
-  const homeEl = document.getElementById('home-event-cd');
-  if (homeEl) {
-    if (diff <= 0) {
-      homeEl.textContent = '🔴 EXAM IS TODAY!';
-    } else {
-      const days = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      if (days <= 1) homeEl.textContent = `🔴 ${hours}h left - VERY SOON!`;
-      else if (days <= 7) homeEl.textContent = `⚡ ${days}d ${hours}h left`;
-      else homeEl.textContent = `📅 ${days} days left`;
-    }
-  }
-
-  const daysEl = document.getElementById('cd-days');
-  if (!daysEl) return;
-
-  if (diff <= 0) {
-    daysEl.textContent = '0';
-    document.getElementById('cd-hours').textContent = '0';
-    document.getElementById('cd-mins').textContent = '0';
-    document.getElementById('cd-secs').textContent = '0';
-    document.getElementById('examDate').innerHTML = '<span style="color:var(--danger);font-weight:800;">🔴 EXAM IS TODAY!</span>';
-    return;
-  }
-
-  const days = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const mins = Math.floor((diff % 3600000) / 60000);
-  const secs = Math.floor((diff % 60000) / 1000);
-
-  daysEl.textContent = days;
-  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-  document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
-  document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
-
-  const badge = document.getElementById('countdownBadge');
-  if (days <= 1) { badge.textContent = 'URGENT'; badge.style.background = 'var(--danger)'; }
-  else if (days <= 7) { badge.textContent = 'SOON'; badge.style.background = 'var(--warning)'; }
-}
-
 window.addEventListener('load', () => {
   setTheme(localStorage.getItem('theme') || 'light');
-  updateCountdowns();
-  setInterval(updateCountdowns, 1000);
 });
 
 document.addEventListener('click', e => {
