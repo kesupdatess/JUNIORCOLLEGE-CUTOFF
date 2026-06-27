@@ -1,12 +1,16 @@
-// KES Analytics Tracker - Fresh Version
+// KES Analytics Tracker - FIXED VERSION
 const SUPABASE_URL = "https://jbyctjddlbyddzavmczg.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpieWN0amRkbGJ5ZGR6YXZtY3pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNzE2NzYsImV4cCI6MjA5Nzk0NzY3Nn0.klEa0-zSGbHZYA-fYiHYg4ceoL1PQ87gowGEbvVmhqU";
 
 console.log('📊 KES Analytics Tracker loading...');
+console.log(' Supabase URL:', SUPABASE_URL);
 
 const session = {
   page: window.location.pathname.split('/').pop() || 'index.html',
-  referrer: document.referrer ? (function(){try{return new URL(document.referrer).hostname}catch(e){return 'Direct'}})() : 'Direct',
+  referrer: (function(){
+    try { return document.referrer ? new URL(document.referrer).hostname : 'Direct'; }
+    catch(e) { return 'Direct'; }
+  })(),
   device: getDevice(),
   browser: getBrowser(),
   os: getOS(),
@@ -113,26 +117,34 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Save to Supabase
+// Save to Supabase - FIXED
 async function saveToSupabase() {
   session.active_time_seconds = activeSeconds;
   session.total_time_seconds = totalSeconds;
   session.timestamp = new Date().toISOString();
 
+  const url = SUPABASE_URL + '/rest/v1/analytics';
+  console.log('📤 Sending to:', url);
+
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/analytics`, {
+    const res = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
         'Prefer': 'return=minimal'
       },
       body: JSON.stringify(session)
     });
-    console.log('✅ Analytics saved:', res.status);
+    
+    if (res.ok) {
+      console.log('✅ Analytics saved:', res.status);
+    } else {
+      console.error('❌ Save failed:', res.status, await res.text());
+    }
   } catch (e) {
-    console.error('❌ Save failed:', e);
+    console.error('❌ Save error:', e);
   }
 }
 
@@ -148,4 +160,4 @@ setInterval(saveToSupabase, 60000);
 // Initial save after 5 seconds
 setTimeout(saveToSupabase, 5000);
 
-console.log('📊 KES Analytics Tracker loaded');
+console.log(' KES Analytics Tracker loaded successfully!');
