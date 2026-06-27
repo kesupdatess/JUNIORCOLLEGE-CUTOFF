@@ -421,6 +421,12 @@ body.dark::before {
   border: 1px solid rgba(5,150,105,0.2);
 }
 
+.event-status.event {
+  background: rgba(37,99,235,0.1);
+  color: var(--primary);
+  border: 1px solid rgba(37,99,235,0.2);
+}
+
 /* ============ INFO BOX ============ */
 .info-box {
   margin-top: 14px;
@@ -444,6 +450,33 @@ body.dark::before {
   font-weight: 500;
   line-height: 1.4;
 }
+
+/* ============ LOADER ============ */
+.loader {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-muted);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty-state {
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--text-muted);
+}
+
+.empty-state .e-ico { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
 
 /* ============ INPUTS ============ */
 input, select, textarea {
@@ -857,51 +890,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
       <h2 style="margin:0;">All Upcoming Events</h2>
       <span class="live-badge">Live</span>
     </div>
-    <p>Academic Calendar 2026-27 — Semester I & III (DEGREE)</p>
+    <p id="events-subtitle">Loading events...</p>
 
-    <div class="events-list">
-      <!-- Event 1: Unit Test Term I -->
-      <div class="event-item" data-date="2026-08-18" data-type="exam">
-        <div class="event-icon">📝</div>
-        <div class="event-details">
-          <div class="event-name">Unit Test for Term I <span class="event-tag">DEGREE</span></div>
-          <div class="event-date">📅 August 18 - 21, 2026</div>
-          <div class="event-countdown" id="event-1-cd">⏳ Loading...</div>
-        </div>
-        <div class="event-status exam">EXAM</div>
-      </div>
-
-      <!-- Event 2: Ganapati Vacation -->
-      <div class="event-item" data-date="2026-08-27" data-type="vacation">
-        <div class="event-icon">🎉</div>
-        <div class="event-details">
-          <div class="event-name">Ganapati Vacation</div>
-          <div class="event-date">📅 August 27 - 31, 2026</div>
-          <div class="event-countdown" id="event-2-cd">⏳ Loading...</div>
-        </div>
-        <div class="event-status vacation">VACATION</div>
-      </div>
-
-      <!-- Event 3: Semester Exam -->
-      <div class="event-item" data-date="2026-10-08" data-type="exam">
-        <div class="event-icon">📊</div>
-        <div class="event-details">
-          <div class="event-name">Semester Exam (Sem I, III, V & PG I, III)</div>
-          <div class="event-date">📅 October 8 - 17, 2026</div>
-          <div class="event-countdown" id="event-3-cd">⏳ Loading...</div>
-        </div>
-        <div class="event-status exam">EXAM</div>
-      </div>
-
-      <!-- Event 4: Diwali Vacation -->
-      <div class="event-item" data-date="2026-10-20" data-type="vacation">
-        <div class="event-icon">🪔</div>
-        <div class="event-details">
-          <div class="event-name">Diwali Vacation</div>
-          <div class="event-date">📅 October 20 - November 5, 2026</div>
-          <div class="event-countdown" id="event-4-cd">⏳ Loading...</div>
-        </div>
-        <div class="event-status vacation">VACATION</div>
+    <div class="events-list" id="events-list">
+      <div class="loader">
+        <div class="spinner"></div>
+        <p>Loading events...</p>
       </div>
     </div>
 
@@ -1022,7 +1016,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
     if (typeof gtag === 'function') {
       gtag('event', 'donate_bar_click', trackData);
-      console.log('📊 GA4 Event Sent:', trackData);
     }
 
     try {
@@ -1032,18 +1025,197 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
       if (history.length > 500) history = history.slice(-500);
       localStorage.setItem(key, JSON.stringify(history));
     } catch(e) {}
-
-    console.log('🌳 Plant Now Click Tracked!');
-    console.log('📄 Page:', trackData.page_path);
-    console.log('⏰ Time:', new Date().toLocaleString());
-    console.log('📱 Device:', trackData.device_type);
   });
 })();
 </script>
 <!-- ============ DONATION BAR - END ============ -->
 
 <script>
-/* ============ THEME ============ */
+// ═══════════════════════════════════════════════════════
+// SUPABASE CONFIGURATION
+// ═══════════════════════════════════════════════════════
+const SUPABASE_URL = 'https://uegdizdnminwhkxcdcle.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlZ2RpemRubWlud2hreGNkY2xlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwODk2MjgsImV4cCI6MjA5NzY2NTYyOH0.2wiAHbaoNoDva_tRseDAywVMu_6AioCGlVLgoVb0d6s';
+
+let eventsData = [];
+
+// ═══════════════════════════════════════════════════════
+// LOAD EVENTS FROM SUPABASE
+// ═══════════════════════════════════════════════════════
+async function loadEvents() {
+  try {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/events?status=in.(upcoming,ongoing)&order=start_date.asc`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY
+      }
+    });
+    if (!r.ok) throw new Error('Load failed');
+    eventsData = await r.json();
+    renderEvents();
+  } catch (e) {
+    console.error('Events load error:', e);
+    document.getElementById('events-list').innerHTML = `
+      <div class="empty-state">
+        <div class="e-ico">⚠️</div>
+        <h3>Unable to load events</h3>
+        <p>${e.message}</p>
+      </div>`;
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER EVENTS
+// ═══════════════════════════════════════════════════════
+function renderEvents() {
+  const container = document.getElementById('events-list');
+  const subtitle = document.getElementById('events-subtitle');
+  
+  if (!eventsData.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="e-ico">📅</div>
+        <h3>No upcoming events</h3>
+        <p>Check back later for new events</p>
+      </div>`;
+    subtitle.textContent = 'No events scheduled';
+    return;
+  }
+  
+  subtitle.textContent = `Academic Calendar 2026-27 — ${eventsData.length} Upcoming Events`;
+  
+  container.innerHTML = eventsData.map((e, idx) => {
+    const startDate = new Date(e.start_date);
+    const endDate = e.end_date ? new Date(e.end_date) : null;
+    
+    // Map category to type (for color coding)
+    let dataType = 'event';
+    let statusClass = 'event';
+    let statusText = 'EVENT';
+    let icon = '📅';
+    
+    if (e.category === 'exam') {
+      dataType = 'exam';
+      statusClass = 'exam';
+      statusText = 'EXAM';
+      icon = '📝';
+    } else if (e.category === 'holiday') {
+      dataType = 'vacation';
+      statusClass = 'vacation';
+      statusText = 'VACATION';
+      icon = '🎉';
+    } else if (e.category === 'festival') {
+      icon = '🎊';
+    } else if (e.category === 'seminar') {
+      icon = '🎤';
+    } else if (e.category === 'sports') {
+      icon = '⚽';
+    } else if (e.category === 'cultural') {
+      icon = '🎭';
+    } else if (e.category === 'workshop') {
+      icon = '🔧';
+    }
+    
+    // Format date
+    const dateStr = formatDateRange(startDate, endDate);
+    
+    // College tag
+    const collegeTag = e.college_type === 'degree' ? '<span class="event-tag">DEGREE</span>' :
+                       e.college_type === 'junior' ? '<span class="event-tag">JUNIOR</span>' : '';
+    
+    return `
+      <div class="event-item" data-date="${startDate.toISOString().split('T')[0]}" data-type="${dataType}" data-id="${e.id}">
+        <div class="event-icon">${icon}</div>
+        <div class="event-details">
+          <div class="event-name">${escapeHtml(e.title)} ${collegeTag}</div>
+          <div class="event-date">📅 ${dateStr}</div>
+          <div class="event-countdown" id="event-${e.id}-cd">⏳ Loading...</div>
+        </div>
+        <div class="event-status ${statusClass}">${statusText}</div>
+      </div>
+    `;
+  }).join('');
+  
+  // Update countdowns
+  updateEventsCountdown();
+}
+
+// ═══════════════════════════════════════════════════════
+// FORMAT DATE RANGE
+// ═══════════════════════════════════════════════════════
+function formatDateRange(start, end) {
+  const opts = { day: 'numeric', month: 'long', year: 'numeric' };
+  const startStr = start.toLocaleDateString('en-IN', opts);
+  
+  if (!end) return startStr;
+  
+  // Same day
+  if (start.toDateString() === end.toDateString()) {
+    return startStr;
+  }
+  
+  // Same month and year
+  if (start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear()) {
+    return `${start.getDate()} - ${end.getDate()} ${start.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}`;
+  }
+  
+  // Different months
+  return `${start.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })} - ${end.toLocaleDateString('en-IN', opts)}`;
+}
+
+// ═══════════════════════════════════════════════════════
+// UPDATE COUNTDOWNS
+// ═══════════════════════════════════════════════════════
+function updateEventsCountdown() {
+  const now = new Date();
+  
+  eventsData.forEach(e => {
+    const el = document.getElementById(`event-${e.id}-cd`);
+    if (!el) return;
+    
+    const eventDate = new Date(e.start_date);
+    const endDate = e.end_date ? new Date(e.end_date) : null;
+    
+    // Check if event is ongoing
+    if (now >= eventDate && endDate && now <= endDate) {
+      el.textContent = '🔴 ONGOING NOW!';
+      el.className = 'event-countdown';
+      return;
+    }
+    
+    // Check if event is past
+    if (now > (endDate || eventDate)) {
+      el.textContent = '✅ Completed';
+      el.className = 'event-countdown far';
+      return;
+    }
+    
+    // Calculate countdown
+    const targetDate = (now >= eventDate && endDate) ? endDate : eventDate;
+    const diff = targetDate - now;
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+    if (days <= 1) {
+      el.textContent = `🔴 ${hours}h left - VERY SOON!`;
+      el.className = 'event-countdown';
+    } else if (days <= 7) {
+      el.textContent = `⚡ ${days}d ${hours}h left - SOON!`;
+      el.className = 'event-countdown soon';
+    } else {
+      el.textContent = `📅 ${days} days left`;
+      el.className = 'event-countdown far';
+    }
+  });
+}
+
+// Update countdown every minute
+setInterval(updateEventsCountdown, 60000);
+
+// ═══════════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════════
 function setTheme(mode) {
   document.body.classList.toggle('dark', mode === 'dark');
   localStorage.setItem('theme', mode);
@@ -1066,7 +1238,9 @@ function showToast(msg, duration = 1500) {
   setTimeout(() => t.remove(), duration);
 }
 
-/* ============ MENU ============ */
+// ═══════════════════════════════════════════════════════
+// MENU
+// ═══════════════════════════════════════════════════════
 function toggleMenu() {
   document.getElementById('sidebar').classList.toggle('active');
   document.getElementById('overlay').classList.toggle('active');
@@ -1082,7 +1256,9 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.getElementById('sidebar').classList.contains('active')) toggleMenu();
 });
 
-/* ============ SCROLL ============ */
+// ═══════════════════════════════════════════════════════
+// SCROLL
+// ═══════════════════════════════════════════════════════
 window.addEventListener('scroll', () => {
   const scrolled = window.scrollY;
   const total = document.documentElement.scrollHeight - window.innerHeight;
@@ -1090,55 +1266,27 @@ window.addEventListener('scroll', () => {
   document.getElementById('backToTop').classList.toggle('visible', scrolled > 300);
 });
 
-/* ============ EVENTS COUNTDOWN ============ */
-function updateEventsCountdown() {
-  const events = [
-    { id: 'event-1-cd', date: '2026-08-18', name: 'Unit Test' },
-    { id: 'event-2-cd', date: '2026-08-27', name: 'Ganapati Vacation' },
-    { id: 'event-3-cd', date: '2026-10-08', name: 'Semester Exam' },
-    { id: 'event-4-cd', date: '2026-10-20', name: 'Diwali Vacation' }
-  ];
-
-  const now = new Date();
-
-  events.forEach(event => {
-    const el = document.getElementById(event.id);
-    if (!el) return;
-
-    const eventDate = new Date(event.date + 'T09:00:00');
-    const diff = eventDate - now;
-
-    if (diff <= 0) {
-      el.textContent = '✅ Started / Completed';
-      el.className = 'event-countdown far';
-      return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-    if (days <= 1) {
-      el.textContent = `🔴 ${hours}h left - VERY SOON!`;
-      el.className = 'event-countdown';
-    } else if (days <= 7) {
-      el.textContent = `⚡ ${days}d ${hours}h left - SOON!`;
-      el.className = 'event-countdown soon';
-    } else {
-      el.textContent = `📅 ${days} days left`;
-      el.className = 'event-countdown far';
-    }
-  });
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-setInterval(updateEventsCountdown, 60000);
-updateEventsCountdown();
-
-/* ============ INIT ============ */
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
 window.addEventListener('load', () => {
   setTheme(localStorage.getItem('theme') || 'light');
+  loadEvents();
 });
 
-/* ============ GA4 CLICK TRACKING ============ */
+// Refresh events every 2 minutes
+setInterval(loadEvents, 120000);
+
+// ═══════════════════════════════════════════════════════
+// GA4 CLICK TRACKING
+// ═══════════════════════════════════════════════════════
 document.addEventListener('click', e => {
   const link = e.target.closest('a');
   if (!link || typeof gtag !== 'function') return;
