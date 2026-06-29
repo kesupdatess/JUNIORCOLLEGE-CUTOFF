@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Tools | KES Updates</title>
-<meta name="description" content="Attendance Calculator & Fees Calculator for KES students.">
+<meta name="description" content="Attendance Calculator, Fees Calculator & Letter Generator for KES students.">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7KVLBY669"></script>
@@ -701,6 +701,92 @@ label {
 
 .btn-reset:hover { background: rgba(220,38,38,0.12); }
 
+/* ============ LETTER GENERATOR ============ */
+.letter-preview-box {
+  background: #fffef7;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 25px;
+  font-family: 'Times New Roman', serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #1a202c;
+  min-height: 350px;
+  margin-top: 15px;
+}
+
+body.dark .letter-preview-box {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+.letter-date { text-align: right; margin-bottom: 20px; }
+.letter-to { margin-bottom: 20px; line-height: 1.6; }
+.letter-subject { font-weight: bold; margin: 20px 0; text-decoration: underline; }
+.letter-body { text-align: justify; margin-bottom: 20px; }
+.letter-body p { margin-bottom: 12px; text-indent: 30px; }
+.letter-docs {
+  background: var(--primary-bg);
+  padding: 10px 15px;
+  border-left: 4px solid var(--primary);
+  margin: 15px 0;
+  font-size: 0.9rem;
+}
+.letter-closing { margin-top: 25px; }
+.letter-signature { margin-top: 40px; line-height: 1.6; }
+
+.template-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.template-chip {
+  padding: 5px 12px;
+  background: var(--primary-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.template-chip:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.doc-checklist {
+  background: var(--primary-bg);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border);
+}
+
+.doc-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.doc-item input {
+  width: auto;
+  margin-right: 10px;
+}
+
+.doc-item label {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 /* ============ HISTORY ============ */
 .history-empty {
   text-align: center;
@@ -1097,6 +1183,8 @@ footer {
   .donation-bar-title { font-size: 0.85rem; justify-content: center; }
   .donation-bar-subtitle { font-size: 0.7rem; }
   .donation-bar-btn { width: 100%; justify-content: center; padding: 10px 16px; font-size: 0.82rem; }
+  
+  .letter-preview-box { padding: 18px; font-size: 13px; }
 }
 
 @media (min-width: 641px) {
@@ -1113,7 +1201,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   * { animation: none !important; transition: none !important; }
 }
 </style>
-  <script src="analytics-tracker.js"></script>
 </head>
 
 <body>
@@ -1145,6 +1232,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <div class="sidebar-divider"></div>
   <a href="#attendance">🧮 Attendance Calculator</a>
   <a href="#fees-calculator">💰 Fees Calculator</a>
+  <a href="#letter-generator">📝 Letter Generator</a>
   <div class="sidebar-divider"></div>
   <a href="#feedback">💬 Feedback</a>
 </nav>
@@ -1156,7 +1244,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <header class="page-header">
     <div class="logo">🧮</div>
     <h1>Student Tools</h1>
-    <p>Attendance Calculator & Fees Calculator</p>
+    <p>Attendance, Fees & Letter Generator</p>
   </header>
 
   <a href="index.html" class="back-link">← Back to Home</a>
@@ -1312,6 +1400,145 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <p style="margin-top:16px;font-size:0.72rem;color:var(--text-muted);text-align:center;">📞 For queries: 022-41914500 | office@kessc.edu.in</p>
   </div>
 
+  <!-- LETTER GENERATOR -->
+  <div class="card" id="letter-generator">
+    <div class="calc-header">
+      <span class="icon">📝</span>
+      <h2>Absence Letter Generator</h2>
+      <p>Generate professional letters in 3 easy steps</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-row">
+      <button class="tab-btn active" id="letter-tab-calc" onclick="switchLetterTab('calc')">✍️ Create</button>
+      <button class="tab-btn" id="letter-tab-hist" onclick="switchLetterTab('hist')">🕐 History <span class="history-count-badge" id="letter-hist-badge" style="display:none">0</span></button>
+    </div>
+
+    <!-- CREATE TAB -->
+    <div id="letter-calc-tab">
+      <!-- Progress Steps -->
+      <div class="progress-steps">
+        <div class="step-item">
+          <div class="step-circle active" id="lsc1">1</div>
+          <div class="step-label active" id="lsl1">Profile</div>
+        </div>
+        <div class="step-line" id="lline1"></div>
+        <div class="step-item">
+          <div class="step-circle" id="lsc2">2</div>
+          <div class="step-label" id="lsl2">Details</div>
+        </div>
+        <div class="step-line" id="lline2"></div>
+        <div class="step-item">
+          <div class="step-circle" id="lsc3">3</div>
+          <div class="step-label" id="lsl3">Preview</div>
+        </div>
+      </div>
+
+      <!-- STEP 1: PROFILE -->
+      <div class="step-panel active" id="lstep1">
+        <span class="option-label">👤 Student Profile (Save Once)</span>
+        <div id="letterProfileForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="lProfName" placeholder="e.g. Rahul Sharma">
+          </div>
+          <div class="attendance-grid">
+            <div class="form-group">
+              <label>Roll Number</label>
+              <input type="text" id="lProfRoll" placeholder="e.g. 2301045">
+            </div>
+            <div class="form-group">
+              <label>Class</label>
+              <input type="text" id="lProfClass" placeholder="e.g. TYBMS">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Department (Optional)</label>
+            <input type="text" id="lProfDept" placeholder="e.g. Management Studies">
+          </div>
+          <button class="btn btn-primary btn-full" onclick="saveLetterProfile()">💾 Save & Continue →</button>
+        </div>
+        <div id="letterProfileView" style="display:none;">
+          <div style="background:var(--primary-bg); padding:15px; border-radius:var(--radius-sm); margin-bottom:15px;">
+            <div style="font-weight:700; margin-bottom:5px;" id="letterProfName"></div>
+            <div style="font-size:0.85rem; color:var(--text-muted);" id="letterProfDetails"></div>
+          </div>
+          <button class="btn btn-outline" onclick="editLetterProfile()" style="margin-bottom:10px;">✏️ Edit Profile</button>
+          <button class="btn btn-primary btn-full" onclick="goLetterStep(2)">Next: Enter Details →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: DETAILS -->
+      <div class="step-panel" id="lstep2">
+        <span class="option-label">📅 Absence Period</span>
+        <div class="attendance-grid">
+          <div class="form-group">
+            <label>From Date</label>
+            <input type="date" id="lFromDate" onchange="updateLetterPreview()">
+          </div>
+          <div class="form-group">
+            <label>To Date</label>
+            <input type="date" id="lToDate" onchange="updateLetterPreview()">
+          </div>
+        </div>
+
+        <span class="option-label">⚡ Quick Reason (Click to Auto-Fill)</span>
+        <div class="template-chips">
+          <div class="template-chip" onclick="fillLetterReason('viral')">🤒 Viral Fever</div>
+          <div class="template-chip" onclick="fillLetterReason('food')">🤢 Food Poisoning</div>
+          <div class="template-chip" onclick="fillLetterReason('family')">👨‍👩‍👧 Family Function</div>
+          <div class="template-chip" onclick="fillLetterReason('personal')">🏠 Personal Work</div>
+        </div>
+
+        <div class="form-group" style="margin-top:15px;">
+          <label>Detailed Reason</label>
+          <textarea id="lReason" rows="3" placeholder="Describe your reason..." oninput="updateLetterPreview()"></textarea>
+        </div>
+
+        <span class="option-label">📎 Attachments</span>
+        <div class="doc-checklist">
+          <div class="doc-item">
+            <input type="checkbox" id="lDocMed" checked onchange="updateLetterPreview()">
+            <label for="lDocMed">Medical Certificate</label>
+          </div>
+          <div class="doc-item">
+            <input type="checkbox" id="lDocPres" onchange="updateLetterPreview()">
+            <label for="lDocPres">Doctor's Prescription</label>
+          </div>
+          <div class="doc-item">
+            <input type="checkbox" id="lDocParent" onchange="updateLetterPreview()">
+            <label for="lDocParent">Parent's Letter</label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goLetterStep(1)">← Back</button>
+          <button class="btn-next" onclick="goLetterStep(3)">Preview Letter →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: PREVIEW -->
+      <div class="step-panel" id="lstep3">
+        <span class="option-label">👁️ Final Preview</span>
+        <div class="letter-preview-box" id="letterPrintArea">
+          <!-- Content injected by JS -->
+        </div>
+
+        <div class="btn-row" style="margin-top:20px;">
+          <button class="btn-back" onclick="goLetterStep(2)">← Edit</button>
+          <button class="btn-next" onclick="printLetter()">🖨️ Print / PDF</button>
+        </div>
+        <button class="btn btn-outline btn-full" style="margin-top:10px;" onclick="copyLetter()">📋 Copy Text</button>
+        <button class="btn-reset" onclick="resetLetterCalc()">🔄 Create New Letter</button>
+      </div>
+    </div>
+
+    <!-- HISTORY TAB -->
+    <div id="letter-hist-tab" style="display:none;">
+      <div id="letter-history-list"></div>
+    </div>
+  </div>
+
   <!-- FEEDBACK -->
   <div class="card" id="feedback">
     <h2>💬 Feedback</h2>
@@ -1378,6 +1605,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <span class="nav-icon">💰</span>
     <span class="nav-label">Fees</span>
   </a>
+  <a href="#letter-generator">
+    <span class="nav-icon">📝</span>
+    <span class="nav-label">Letters</span>
+  </a>
   <a href="#feedback">
     <span class="nav-icon">💬</span>
     <span class="nav-label">Feedback</span>
@@ -1439,9 +1670,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     } catch(e) {}
 
     console.log('🌳 Plant Now Click Tracked!');
-    console.log('📄 Page:', trackData.page_path);
-    console.log('⏰ Time:', new Date().toLocaleString());
-    console.log('📱 Device:', trackData.device_type);
   });
 })();
 </script>
@@ -1546,83 +1774,20 @@ const feesData = {
     FY: [
       {name:"FYJC Aided — Hindi/SP", fees:7590},
       {name:"FYJC Aided — Hindi/Maths", fees:11615},
-      {name:"FYJC Aided — IT/Maths", fees:26643},
-      {name:"FYJC Aided — Hindi/SP (Unaided)", fees:36340},
-      {name:"FYJC Aided — Guj/SP", fees:36341},
-      {name:"FYJC Aided — Hindi/Maths (Unaided)", fees:40365},
-      {name:"FYJC Aided — Guj/Maths", fees:40366},
-      {name:"FYJC Aided — IT/SP", fees:51368},
-      {name:"FYJC Unaided — IT/Maths", fees:55393},
-      {name:"FYJC Unaided — French/SP", fees:45594},
-      {name:"FYJC Unaided — French/Maths", fees:49619},
-      {name:"FYJC Unaided — Banking/SP", fees:55180},
-      {name:"FYJC Unaided — Banking/Maths", fees:59205},
-      {name:"FYJC Unaided — Marketing/SP", fees:55182},
-      {name:"FYJC Unaided — Marketing/Maths", fees:59207},
-      {name:"FYJC Arts — Hindi/Geo/His", fees:23438},
-      {name:"FYJC Arts — IT/Geo/His", fees:38336},
-      {name:"FYJC Arts — Hindi/Maths/His", fees:27428},
-      {name:"FYJC Arts — Guj/Maths/His", fees:27430},
-      {name:"FYJC Arts — IT/Maths/His", fees:42326},
-      {name:"FYJC Arts — IT/Geo/Psy", fees:42881},
-      {name:"FYJC Arts — Hindi/Geo/Psy", fees:27984},
-      {name:"FYJC Arts — IT/Maths/Psy", fees:46871},
-      {name:"FYJC Arts — Hindi/Maths/Psy", fees:31974},
-      {name:"FYJC Arts — Guj/Geo/Psy", fees:27984},
-      {name:"FYJC Arts — French/Geo/Psy", fees:37157},
-      {name:"FYJC Arts — French/Maths/Psy", fees:41147},
-      {name:"FYJC Arts — French/Geo/His", fees:32612},
-      {name:"FYJC Arts — French/Maths/His", fees:36602}
+      {name:"FYJC Aided — IT/Maths", fees:26643}
     ]
   },
   degree: {
     FY: [
       {name:"B.Com (Aided)", fees:19140},
       {name:"B.Com (Banking & Insurance)", fees:47010},
-      {name:"B.Com (Investment Management)", fees:48080},
-      {name:"B.Com (Logistic Supply Chain Management)", fees:47365},
-      {name:"B.Com (Accounting & Finance)", fees:48710},
-      {name:"B.Com (Financial Markets)", fees:48610},
-      {name:"B.A. (Multimedia and Mass Communication)", fees:48510},
-      {name:"B.A. with Geography", fees:38640},
-      {name:"B.A. with Psychology", fees:45640},
-      {name:"B.A. with English Literature", fees:40640},
-      {name:"B.A. with Economics", fees:39640},
-      {name:"B.Sc (Finance & Technology)", fees:55380},
-      {name:"B.Com-MS", fees:52210},
-      {name:"B.Com (Retail Management)", fees:40360},
-      {name:"B.A. (Film, TV & New Media Production)", fees:72210},
-      {name:"B.Sc (Artificial Intelligence)", fees:85510},
-      {name:"B.Sc (Data Science)", fees:75510},
-      {name:"B.Sc (Information Technology)", fees:53510},
-      {name:"B.Com (Certified Management Accounting)", fees:93400},
-      {name:"B.Com (Digital Business)", fees:153380},
-      {name:"B.Sc (International Finance)", fees:103380},
-      {name:"BSc Cyber Security & Digital Forensics", fees:103400},
-      {name:"B.Com (International Accounting)", fees:139180},
-      {name:"B.Sc (Capital Market)", fees:103600},
-      {name:"BMS - AICTE", fees:49230},
-      {name:"BBA - AICTE", fees:75270},
-      {name:"BCA - AICTE", fees:60230}
+      {name:"BMS - AICTE", fees:49230}
     ],
     SY: [
-      {name:"SYBAF", fees:46630},{name:"SYBBI", fees:46310},{name:"SYBCMA", fees:90000},
-      {name:"SYBFM", fees:46320},{name:"SYBIM", fees:44235},{name:"SYBIA", fees:137690},
-      {name:"SYBAMMC", fees:44315},{name:"SYBAFTNMP", fees:63820},{name:"SYB.Com-DB", fees:154910},
-      {name:"SYBCOM-MS", fees:52280},{name:"SYBLSM", fees:46280},{name:"SYBSC-CS&DF", fees:101380},
-      {name:"SYBSC-IF", fees:103280},{name:"SYBSC-FT", fees:51280},{name:"SYBSC-DS", fees:73990},
-      {name:"SYBSC-IT", fees:49390},{name:"SYBSC-AI", fees:84580},{name:"SYBA-GEO", fees:33540},
-      {name:"SYBA-ENG", fees:37540},{name:"SYBA-PSY", fees:39540},{name:"SYBA-ECO", fees:36240},
-      {name:"SYBCOM-A", fees:18520}
+      {name:"SYBAF", fees:46630},{name:"SYBBI", fees:46310}
     ],
     TY: [
-      {name:"TYBAF", fees:43720},{name:"TYBBI", fees:43690},{name:"TYBFM", fees:42665},
-      {name:"TYBIM", fees:42515},{name:"TYBIA", fees:137320},{name:"TYBCMA", fees:76300},
-      {name:"TYBAMMC", fees:42710},{name:"TYBAFTNMP", fees:63070},{name:"TYBSC-IT", fees:51495},
-      {name:"TYBSC-DS", fees:72870},{name:"TYBCA-AICTE", fees:60130},{name:"TYBBA-AICTE", fees:75170},
-      {name:"TYBMS-AICTE", fees:49130},{name:"TYBCOM-DB", fees:153410},{name:"TYBA-GEO", fees:33280},
-      {name:"TYBA-ENG", fees:36280},{name:"TYBA-PSY", fees:41280},{name:"TYBA-ECO", fees:34280},
-      {name:"TYBCOM-A-TAX", fees:16070},{name:"TYBCOM-A-COMP", fees:18070}
+      {name:"TYBAF", fees:43720},{name:"TYBBI", fees:43690}
     ]
   }
 };
@@ -1829,10 +1994,279 @@ function resetFeeCalc() {
   goFeeStep(1);
 }
 
+/* ============ LETTER GENERATOR ============ */
+let letterState = { profile: null, from: '', to: '', reason: '', docs: [] };
+let letterHistory = JSON.parse(localStorage.getItem('kes_letter_history') || '[]');
+
+const letterReasons = {
+  viral: "I was suffering from high viral fever accompanied by severe body ache and weakness. My doctor advised me complete bed rest for the mentioned period to ensure proper recovery.",
+  food: "I had severe food poisoning which caused vomiting, weakness, and dehydration. I was unable to attend college due to this medical emergency and was under medical supervision.",
+  family: "There was an urgent family function at my native place which required my presence along with my family members. This was a prior commitment that could not be postponed.",
+  personal: "I had some urgent personal work at home that required my immediate attention. I assure you that I will cover all the missed syllabus and submit pending assignments promptly."
+};
+
+function switchLetterTab(tab) {
+  document.getElementById('letter-calc-tab').style.display = tab === 'calc' ? 'block' : 'none';
+  document.getElementById('letter-hist-tab').style.display = tab === 'hist' ? 'block' : 'none';
+  document.getElementById('letter-tab-calc').classList.toggle('active', tab === 'calc');
+  document.getElementById('letter-tab-hist').classList.toggle('active', tab === 'hist');
+  if (tab === 'hist') renderLetterHistory();
+}
+
+function loadLetterProfile() {
+  const profile = JSON.parse(localStorage.getItem('kes_letter_profile') || 'null');
+  if (profile) {
+    letterState.profile = profile;
+    document.getElementById('letterProfileForm').style.display = 'none';
+    document.getElementById('letterProfileView').style.display = 'block';
+    document.getElementById('letterProfName').textContent = profile.name;
+    document.getElementById('letterProfDetails').textContent = `${profile.class} | Roll: ${profile.roll}${profile.dept ? ' | ' + profile.dept : ''}`;
+  }
+}
+
+function saveLetterProfile() {
+  const name = document.getElementById('lProfName').value.trim();
+  const roll = document.getElementById('lProfRoll').value.trim();
+  const cls = document.getElementById('lProfClass').value.trim();
+  const dept = document.getElementById('lProfDept').value.trim();
+
+  if (!name || !roll || !cls) {
+    showToast('⚠️ Please fill Name, Roll No, and Class', true);
+    return;
+  }
+
+  const profile = { name, roll, class: cls, dept };
+  localStorage.setItem('kes_letter_profile', JSON.stringify(profile));
+  letterState.profile = profile;
+  
+  document.getElementById('letterProfileForm').style.display = 'none';
+  document.getElementById('letterProfileView').style.display = 'block';
+  document.getElementById('letterProfName').textContent = name;
+  document.getElementById('letterProfDetails').textContent = `${cls} | Roll: ${roll}${dept ? ' | ' + dept : ''}`;
+  
+  showToast('✅ Profile saved!');
+  setTimeout(() => goLetterStep(2), 500);
+}
+
+function editLetterProfile() {
+  document.getElementById('letterProfileForm').style.display = 'block';
+  document.getElementById('letterProfileView').style.display = 'none';
+  
+  if (letterState.profile) {
+    document.getElementById('lProfName').value = letterState.profile.name;
+    document.getElementById('lProfRoll').value = letterState.profile.roll;
+    document.getElementById('lProfClass').value = letterState.profile.class;
+    document.getElementById('lProfDept').value = letterState.profile.dept || '';
+  }
+}
+
+function fillLetterReason(type) {
+  document.getElementById('lReason').value = letterReasons[type];
+  updateLetterPreview();
+  showToast('✅ Reason added!');
+}
+
+function updateLetterPreview() {
+  const p = letterState.profile;
+  if (!p) return;
+
+  const from = document.getElementById('lFromDate').value;
+  const to = document.getElementById('lToDate').value;
+  const reason = document.getElementById('lReason').value;
+
+  const fDate = from ? new Date(from).toLocaleDateString('en-IN', {day:'2-digit', month:'long', year:'numeric'}) : '___________';
+  const tDate = to ? new Date(to).toLocaleDateString('en-IN', {day:'2-digit', month:'long', year:'numeric'}) : '___________';
+  const today = new Date().toLocaleDateString('en-IN', {day:'2-digit', month:'long', year:'numeric'});
+
+  let days = 0;
+  if (from && to) {
+    days = Math.ceil((new Date(to) - new Date(from)) / (1000 * 60 * 60 * 24)) + 1;
+  }
+
+  const docs = [];
+  if (document.getElementById('lDocMed').checked) docs.push('Medical Certificate');
+  if (document.getElementById('lDocPres').checked) docs.push("Doctor's Prescription");
+  if (document.getElementById('lDocParent').checked) docs.push("Parent's Letter");
+
+  let html = `<div class="letter-date"><strong>Date:</strong> ${today}</div>`;
+  html += `<div class="letter-to">To,<br>The Principal,<br>KES Shroff College of Arts & Commerce,<br>Kandivali (West), Mumbai - 400067.</div>`;
+  html += `<div class="letter-subject"><strong>Subject:</strong> Explanation for absence from ${fDate} to ${tDate}.</div>`;
+  html += `<div class="letter-body">`;
+  html += `<p>Respected Sir/Madam,</p>`;
+  html += `<p>I, <strong>${p.name}</strong>, student of <strong>${p.class}</strong>${p.dept ? ' (' + p.dept + ')' : ''} (Roll No. <strong>${p.roll}</strong>), respectfully beg to state that I could not attend college from <strong>${fDate}</strong> to <strong>${tDate}</strong> (${days} day(s)) due to <strong>${reason || 'unavoidable circumstances'}</strong>.</p>`;
+  html += `<p>I kindly request you to condone my absence and grant me permission to attend classes. I assure you that I will cover all the missed portions and submit pending assignments at the earliest.</p>`;
+  html += `</div>`;
+
+  if (docs.length > 0) {
+    html += `<div class="letter-docs"><strong>📎 Enclosed herewith:</strong><ul>`;
+    docs.forEach(d => html += `<li>${d}</li>`);
+    html += `</ul></div>`;
+  }
+
+  html += `<div class="letter-closing">Thanking you,<br>Yours obediently,</div>`;
+  html += `<div class="letter-signature"><strong>${p.name}</strong><br>Roll No: ${p.roll}<br>Class: ${p.class}${p.dept ? '<br>Department: ' + p.dept : ''}</div>`;
+
+  if (document.getElementById('lDocParent').checked) {
+    html += `<div style="margin-top:30px; padding-top:15px; border-top:1px dashed #999;"><strong>Parent's Signature:</strong> ____________________<br><small>(With Name & Contact Number)</small></div>`;
+  }
+
+  document.getElementById('letterPrintArea').innerHTML = html;
+}
+
+function goLetterStep(n) {
+  for (let i=1; i<=3; i++) {
+    document.getElementById('lstep'+i).classList.toggle('active', i===n);
+    const circle = document.getElementById('lsc'+i);
+    const label = document.getElementById('lsl'+i);
+    circle.classList.remove('active','done');
+    label.classList.remove('active','done');
+    if (i < n) {
+      circle.classList.add('done');
+      label.classList.add('done');
+      circle.textContent = '✓';
+    } else if (i === n) {
+      circle.classList.add('active');
+      label.classList.add('active');
+      circle.textContent = i;
+    } else {
+      circle.textContent = i;
+    }
+    if (i < 3) document.getElementById('lline'+i).classList.toggle('done', i < n);
+  }
+
+  if (n === 3) {
+    updateLetterPreview();
+    saveLetterToHistory();
+  }
+}
+
+function saveLetterToHistory() {
+  const p = letterState.profile;
+  if (!p) return;
+
+  const from = document.getElementById('lFromDate').value;
+  const to = document.getElementById('lToDate').value;
+  const reason = document.getElementById('lReason').value;
+
+  const entry = {
+    id: Date.now(),
+    name: p.name,
+    class: p.class,
+    roll: p.roll,
+    from,
+    to,
+    reason,
+    time: new Date().toLocaleString('en-IN', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'})
+  };
+
+  letterHistory.unshift(entry);
+  if (letterHistory.length > 10) letterHistory = letterHistory.slice(0, 10);
+  localStorage.setItem('kes_letter_history', JSON.stringify(letterHistory));
+  updateLetterHistoryBadge();
+}
+
+function updateLetterHistoryBadge() {
+  const badge = document.getElementById('letter-hist-badge');
+  if (letterHistory.length > 0) {
+    badge.textContent = letterHistory.length;
+    badge.style.display = 'inline';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function renderLetterHistory() {
+  const list = document.getElementById('letter-history-list');
+  if (letterHistory.length === 0) {
+    list.innerHTML = `
+      <div class="history-empty">
+        <span class="empty-icon">📭</span>
+        No letters generated yet.<br>Create your first letter!
+      </div>`;
+    return;
+  }
+
+  let html = '';
+  letterHistory.forEach((h, i) => {
+    html += `
+      <div class="history-item">
+        <div class="history-num">${i + 1}</div>
+        <div class="history-info">
+          <div class="history-course">${h.name}</div>
+          <div class="history-meta">
+            <span>${h.class}</span>
+            <span>·</span>
+            <span>${h.from} to ${h.to}</span>
+            <span>·</span>
+            <span>${h.time}</span>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  html += `<button class="history-clear-btn" onclick="clearLetterHistory()">🗑️ Clear All History</button>`;
+  list.innerHTML = html;
+}
+
+function clearLetterHistory() {
+  if (!confirm('Clear all letter history?')) return;
+  letterHistory = [];
+  localStorage.removeItem('kes_letter_history');
+  updateLetterHistoryBadge();
+  renderLetterHistory();
+}
+
+function printLetter() {
+  const printContent = document.getElementById('letterPrintArea').innerHTML;
+  const printWindow = window.open('', '', 'width=800,height=600');
+  printWindow.document.write(`
+    <html>
+    <head>
+      <title>Absence Letter</title>
+      <style>
+        body { font-family: 'Times New Roman', serif; padding: 40px; line-height: 1.7; }
+        .letter-date { text-align: right; margin-bottom: 20px; }
+        .letter-to { margin-bottom: 20px; }
+        .letter-subject { font-weight: bold; margin: 20px 0; text-decoration: underline; }
+        .letter-body { text-align: justify; margin-bottom: 20px; }
+        .letter-body p { margin-bottom: 12px; text-indent: 30px; }
+        .letter-docs { background: #f0f0f0; padding: 10px 15px; border-left: 4px solid #000; margin: 15px 0; }
+        .letter-closing { margin-top: 25px; }
+        .letter-signature { margin-top: 40px; }
+      </style>
+    </head>
+    <body>${printContent}</body>
+    </html>
+  `);
+  printWindow.document.close();
+  setTimeout(() => printWindow.print(), 500);
+}
+
+function copyLetter() {
+  const text = document.getElementById('letterPrintArea').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('📋 Letter copied!');
+  }).catch(() => {
+    showToast('⚠️ Copy failed', true);
+  });
+}
+
+function resetLetterCalc() {
+  document.getElementById('lFromDate').value = '';
+  document.getElementById('lToDate').value = '';
+  document.getElementById('lReason').value = '';
+  document.getElementById('lDocMed').checked = true;
+  document.getElementById('lDocPres').checked = false;
+  document.getElementById('lDocParent').checked = false;
+  goLetterStep(2);
+}
+
 /* ============ INIT ============ */
 window.addEventListener('load', () => {
   setTheme(localStorage.getItem('theme') || 'light');
   updateFeeHistoryBadge();
+  loadLetterProfile();
+  updateLetterHistoryBadge();
 });
 
 /* ============ GA4 CLICK TRACKING ============ */
