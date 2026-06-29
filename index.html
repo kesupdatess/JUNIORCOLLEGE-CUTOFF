@@ -226,9 +226,6 @@ body.dark::before {
   background: linear-gradient(135deg, var(--card), var(--primary-bg));
 }
 
-/* ═══════════════════════════════════════════════════════
-   NOTICES SECTION - UNCHANGED
-   ═══════════════════════════════════════════════════════ */
 .notice-college-section {
   margin-bottom: 20px;
   padding-bottom: 20px;
@@ -251,7 +248,6 @@ body.dark::before {
 .notice-college-header .college-icon { font-size: 1.3rem; }
 .notice-college-header h3 { font-size: 0.98rem; font-weight: 700; color: var(--text); }
 
-/* Live KES Notice List Style */
 .kes-live-list { list-style: none; margin-bottom: 14px; }
 .kes-live-item {
     padding: 12px 0;
@@ -397,9 +393,6 @@ body.dark::before {
 .view-all-btn .arrow { transition: transform 0.2s; }
 .view-all-btn:hover .arrow { transform: translateX(4px); }
 
-/* ═══════════════════════════════════════════════════════
-   DYNAMIC EVENTS SECTION - NEW CSS (Matching your style)
-   ═══════════════════════════════════════════════════════ */
 .live-badge {
   background: var(--danger);
   color: white;
@@ -528,7 +521,6 @@ body.dark::before {
   font-weight: 700;
 }
 
-/* Events List in Index */
 .events-list {
   display: flex;
   flex-direction: column;
@@ -646,9 +638,6 @@ body.dark::before {
   flex-shrink: 0;
 }
 
-/* ═══════════════════════════════════════════════════════
-   OTHER STYLES - UNCHANGED
-   ═══════════════════════════════════════════════════════ */
 .link-list {
   display: flex;
   flex-direction: column;
@@ -1154,6 +1143,17 @@ footer {
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
+.degree-scrape-divider {
+  text-align: center;
+  padding: 15px 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-top: 1px dashed var(--border);
+  margin: 10px 0;
+  display: none;
+}
+
 @media (max-width: 640px) {
   body { font-size: 14px; }
   .page-header h1 { font-size: 1.3rem; }
@@ -1213,9 +1213,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <p>Student Portal Navigation</p>
   </div>
   <a href="#notices">📢 Notices</a>
-  <a href="#student">🧑🎓 Student Corner</a>
+  <a href="#student">🧑‍🎓 Student Corner</a>
   <a href="#academic">📚 Academic Info</a>
-  <a href="#featured-event"> Featured Event</a>
+  <a href="#featured-event">⏰ Featured Event</a>
   <a href="#upcoming-events">📅 Upcoming Events</a>
   <div class="sidebar-divider"></div>
   <a href="#papers">📄 Question Papers</a>
@@ -1223,11 +1223,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <a href="#library">📚 Library</a>
   <a href="tools.html">🧮 Tools</a>
   <div class="sidebar-divider"></div>
-  <a href="college.html">️ College Details</a>
+  <a href="college.html">🏛️ College Details</a>
   <a href="events.html">📅 All Events</a>
   <div class="sidebar-divider"></div>
   <a href="#collab">🤝 Collaboration</a>
-  <a href="#about">️ About</a>
+  <a href="#about">ℹ️ About</a>
   <a href="#our-policy">📄 Policy</a>
   <a href="#feedback">💬 Feedback</a>
 </nav>
@@ -1251,7 +1251,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <div class="ticker">
     <span class="ticker-label">LIVE</span>
     <div class="ticker-content">
-      <span class="ticker-text"> Check latest notices • 💳 Pay fees via ERP Portal • 📚 Academic Calendar 2026-27 available • 📄 Previous Year Question Papers • 🤝 Collaborate: kesupdatess@gmail.com</span>
+      <span class="ticker-text">📢 Check latest notices • 💳 Pay fees via ERP Portal • 📚 Academic Calendar 2026-27 available • 📄 Previous Year Question Papers • 🤝 Collaborate: kesupdatess@gmail.com</span>
     </div>
   </div>
 
@@ -1265,11 +1265,42 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <p id="noResults" class="no-results">😕 No matching results found.</p>
 
   <!-- ═══════════════════════════════════════════════════════
-       NOTICES SECTION - UPDATED WITH LIVE KES DATA
+       NOTICES SECTION - DEGREE TOP, JUNIOR BOTTOM
        ═══════════════════════════════════════════════════════ -->
   <div class="card card-featured searchable" id="notices">
     <h2>📢 Important Notices</h2>
     
+    <!-- DEGREE COLLEGE (TOP) - Admin + Scraped Both -->
+    <div class="notice-college-section">
+      <div class="notice-college-header">
+        <span class="college-icon">🎓</span>
+        <h3>Degree College Notices</h3>
+      </div>
+      
+      <!-- Admin Panel Custom Notices (Supabase) -->
+      <div id="degree-custom-notices"></div>
+      
+      <!-- Divider (shown only when custom notices exist) -->
+      <div id="degree-scrape-divider" class="degree-scrape-divider">
+        🌐 LIVE NOTICES FROM KES WEBSITE
+      </div>
+      
+      <!-- Scraped Notices from kessc.edu.in -->
+      <ul id="kes-live-notices" class="kes-live-list">
+        <li class="kes-loading">Fetching latest notices...</li>
+      </ul>
+      
+      <a href="https://kessc.edu.in/notices/" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="view-all-btn">
+        <span>🌐</span>
+        <span>View All Degree College Notices</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- JUNIOR COLLEGE (BOTTOM) - Admin Only -->
     <div class="notice-college-section">
       <div class="notice-college-header">
         <span class="college-icon">🏫</span>
@@ -1282,27 +1313,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
          class="view-all-btn">
         <span>🌐</span>
         <span>View All Junior College Notices</span>
-        <span class="arrow">→</span>
-      </a>
-    </div>
-
-    <div class="notice-college-section">
-      <div class="notice-college-header">
-        <span class="college-icon">🎓</span>
-        <h3>Degree College Notices</h3>
-      </div>
-      
-      <!-- LIVE KES NOTICES CONTAINER -->
-      <ul id="kes-live-notices" class="kes-live-list">
-        <li class="kes-loading">Fetching latest notices...</li>
-      </ul>
-      
-      <a href="https://kessc.edu.in/notices/" 
-         target="_blank" 
-         rel="noopener noreferrer"
-         class="view-all-btn">
-        <span>🌐</span>
-        <span>View All Degree College Notices</span>
         <span class="arrow">→</span>
       </a>
     </div>
@@ -1323,7 +1333,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         <span class="arrow">→</span>
       </a>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSdpkELaLHjghZzWYR6EPYotuRvRDa3yQq3r5y2EHkRqrQOG8g/viewform" target="_blank" rel="noopener noreferrer" style="background:var(--danger);color:white;">
-        <span> Facing issue in college? Tell us!</span>
+        <span>🚨 Facing issue in college? Tell us!</span>
         <span class="arrow">→</span>
       </a>
     </div>
@@ -1334,11 +1344,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <h2>📚 Academic Info</h2>
     <div class="link-list">
       <a href="https://drive.google.com/file/d/1F9UqN7SbvUJEaWOy7jtvoiu1dNkEpqVX/view" target="_blank" rel="noopener noreferrer">
-        <span> Academic Calendar 2026-27</span>
+        <span>📅 Academic Calendar 2026-27</span>
         <span class="arrow">→</span>
       </a>
       <a href="https://drive.google.com/file/d/1vYEIClJD7QRGKD0ANY-XlPPUl-h9RN-f/view" target="_blank" rel="noopener noreferrer">
-        <span> Junior College Fees Structure</span>
+        <span>🏫 Junior College Fees Structure</span>
         <span class="arrow">→</span>
       </a>
       <a href="https://drive.google.com/file/d/1VZeVNJ06mvhjIu6u6YeIpQzjxx2GiduN/view" target="_blank" rel="noopener noreferrer">
@@ -1353,14 +1363,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <p>All academic documents in one place.</p>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       🔥 FEATURED EVENT COUNTDOWN - DYNAMIC (Replaces hardcoded)
-       ═══════════════════════════════════════════════════════ -->
   <div id="featured-event-container"></div>
 
-  <!-- ═══════════════════════════════════════════════════════
-        UPCOMING EVENTS LIST - DYNAMIC (Replaces hardcoded)
-       ═══════════════════════════════════════════════════════ -->
   <div class="card searchable" id="upcoming-events">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;">
       <h2 style="margin:0;">📅 Upcoming Events</h2>
@@ -1373,9 +1377,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <a class="btn btn-primary btn-full" href="events.html">📅 View All Upcoming Events</a>
   </div>
 
-  <!-- UNCHANGED SECTIONS -->
   <div class="card searchable" id="papers">
-    <h2> Question Papers</h2>
+    <h2>📄 Question Papers</h2>
     <div class="link-list">
       <a href="https://kessclibrary.wixsite.com/library/copy-of-question-papers" target="_blank" rel="noopener noreferrer">
         <span>📝 Previous Year Question Papers</span>
@@ -1453,7 +1456,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         <div class="tool-desc">Arts & Commerce</div>
       </a>
       <a href="college.html" class="tool-card">
-        <div class="tool-icon">️</div>
+        <div class="tool-icon">⚖️</div>
         <div class="tool-name">Annex-1</div>
         <div class="tool-desc">Law College</div>
       </a>
@@ -1524,7 +1527,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
           <option value="suggestion">💡 Suggestion</option>
           <option value="bug">🐛 Bug Report</option>
           <option value="feature">✨ Feature Request</option>
-          <option value="content"> Content Update</option>
+          <option value="content">📄 Content Update</option>
           <option value="other">📝 Other</option>
         </select>
       </div>
@@ -1552,7 +1555,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
           <li><a href="#erp">💳 ERP Portal</a></li>
           <li><a href="tools.html">🧮 Tools</a></li>
           <li><a href="#papers">📄 Question Papers</a></li>
-          <li><a href="#library"> Library</a></li>
+          <li><a href="#library">📚 Library</a></li>
         </ul>
       </div>
     </div>
@@ -1621,7 +1624,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 <script>
 // ═══════════════════════════════════════════════════════
-// DYNAMIC NOTICES - OLD SUPABASE (unchanged)
+// SUPABASE NOTICES - FOR BOTH JUNIOR & DEGREE
 // ═══════════════════════════════════════════════════════
 const NOTICES_URL = 'https://jbyctjddlbyddzavmczg.supabase.co';
 const NOTICES_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpieWN0amRkbGJ5ZGR6YXZtY3pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNzE2NzYsImV4cCI6MjA5Nzk0NzY3Nn0.klEa0-zSGbHZYA-fYiHYg4ceoL1PQ87gowGEbvVmhqU';
@@ -1639,19 +1642,34 @@ async function loadNotices() {
   } catch(e) {
     console.error('Failed to load notices:', e);
     document.getElementById('junior-notices').innerHTML = '';
+    document.getElementById('degree-custom-notices').innerHTML = '';
   }
 }
 
 function renderNotices() {
+  // Junior College Notices
   const juniorNotices = allNotices.filter(n => n.college_type === 'junior' || n.college_type === 'both');
-  
   document.getElementById('junior-notices').innerHTML = juniorNotices.length
     ? juniorNotices.map(n => renderNoticeCard(n)).join('')
-    : '';
+    : '<p style="color:var(--text-muted);font-size:.85rem;text-align:center;padding:10px;">No Junior College notices added yet.</p>';
+
+  // Degree College Custom Notices (from Admin Panel)
+  const degreeNotices = allNotices.filter(n => n.college_type === 'degree' || n.college_type === 'both');
+  const degreeCustomContainer = document.getElementById('degree-custom-notices');
+  
+  if (degreeNotices.length > 0) {
+    degreeCustomContainer.innerHTML = degreeNotices.map(n => renderNoticeCard(n, true)).join('');
+    // Show divider before scraped notices
+    document.getElementById('degree-scrape-divider').style.display = 'block';
+  } else {
+    degreeCustomContainer.innerHTML = '';
+    document.getElementById('degree-scrape-divider').style.display = 'none';
+  }
 }
 
-function renderNoticeCard(n) {
+function renderNoticeCard(n, isDegree = false) {
   const pinnedBadge = n.is_pinned ? `<div class="notice-pinned-badge">📌 Pinned</div>` : '';
+  const customBadge = isDegree ? `<span style="background:rgba(37,99,235,0.1);color:var(--primary);padding:2px 8px;border-radius:99px;font-size:0.6rem;font-weight:700;margin-left:8px;">⭐ Custom</span>` : '';
   const image = n.image_url ? `<img src="${n.image_url}" class="notice-img" alt="${escapeHtml(n.title)}" loading="lazy" />` : '';
   const link = n.link ? `<a href="${n.link}" target="_blank" class="notice-link-btn">Read more →</a>` : '';
   
@@ -1660,7 +1678,7 @@ function renderNoticeCard(n) {
       ${pinnedBadge}
       ${image}
       <div class="notice-header">
-        <span class="notice-category cat-${n.category}">${catIcon(n.category)} ${n.category}</span>
+        <span class="notice-category cat-${n.category}">${catIcon(n.category)} ${n.category}${customBadge}</span>
         <span class="notice-date">${fDate(n.created_at)}</span>
       </div>
       <div class="notice-title">${escapeHtml(n.title)}</div>
@@ -1685,8 +1703,8 @@ setInterval(loadNotices, 30000);
 </script>
 
 <script>
-// ══════════════════════════════════════════════════════
-// 🆕 LIVE KES DEGREE COLLEGE NOTICES SCRAPER
+// ═══════════════════════════════════════════════════════
+// LIVE KES DEGREE COLLEGE NOTICES SCRAPER
 // ═══════════════════════════════════════════════════════
 const KES_NOTICES_PAGE = 'https://kessc.edu.in/notices/';
 const KES_PROXIES = [
@@ -1717,7 +1735,7 @@ async function loadKESNotices() {
 
       if (!htmlText) continue;
 
-      // 🔥 FAST REGEX PARSING (No DOMParser = No 100ms Error)
+      // FAST REGEX PARSING
       const blockRegex = /<li class="wp-block-post[^>]*>[\s\S]*?<\/li>/g;
       const blocks = htmlText.match(blockRegex);
 
@@ -1747,7 +1765,7 @@ async function loadKESNotices() {
         </li>
       `).join('');
 
-      return; 
+      return;
 
     } catch (err) {
       console.warn(`KES Proxy failed: ${proxy}`, err.message);
@@ -1764,7 +1782,7 @@ setInterval(loadKESNotices, 300000);
 
 <script>
 // ═══════════════════════════════════════════════════════
-// 🆕 DYNAMIC EVENTS - NEW SUPABASE (Only this is new)
+// DYNAMIC EVENTS
 // ═══════════════════════════════════════════════════════
 const EVENTS_URL = 'https://uegdizdnminwhkxcdcle.supabase.co';
 const EVENTS_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlZ2RpemRubWlud2hreGNkY2xlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwODk2MjgsImV4cCI6MjA5NzY2NTYyOH0.2wiAHbaoNoDva_tRseDAywVMu_6AioCGlVLgoVb0d6s';
@@ -1816,9 +1834,9 @@ function renderFeaturedEvent() {
     badgeBg = 'var(--warning)';
   }
   
-  const collegeLabel = featured.college_type === 'degree' ? ' Degree College' : 
+  const collegeLabel = featured.college_type === 'degree' ? '🎓 Degree College' : 
                        featured.college_type === 'junior' ? '🏫 Junior College' : '🎓 Both Colleges';
-  const locationText = featured.location ? ` •  ${featured.location}` : '';
+  const locationText = featured.location ? ` • 📍 ${featured.location}` : '';
   
   let dateText = `📅 Expected: <span class="highlight">${start.toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'})}</span>`;
   if (end && start.toDateString() !== end.toDateString()) {
@@ -1962,7 +1980,7 @@ setInterval(loadEvents, 120000);
 
 <script>
 // ═══════════════════════════════════════════════════════
-// OTHER FUNCTIONS - UNCHANGED
+// OTHER FUNCTIONS
 // ═══════════════════════════════════════════════════════
 function setTheme(mode) {
   document.body.classList.toggle('dark', mode === 'dark');
