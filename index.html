@@ -251,6 +251,36 @@ body.dark::before {
 .notice-college-header .college-icon { font-size: 1.3rem; }
 .notice-college-header h3 { font-size: 0.98rem; font-weight: 700; color: var(--text); }
 
+/* Live KES Notice List Style */
+.kes-live-list { list-style: none; margin-bottom: 14px; }
+.kes-live-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    transition: background 0.2s;
+}
+.kes-live-item:last-child { border-bottom: none; }
+.kes-live-item:hover { background: var(--primary-bg); margin: 0 -10px; padding-left: 10px; padding-right: 10px; border-radius: 6px; }
+.kes-live-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 100px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.kes-live-title a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.4;
+    transition: color 0.2s;
+}
+.kes-live-title a:hover { color: var(--primary); text-decoration: underline; }
+.kes-loading { text-align: center; padding: 20px; color: var(--text-muted); font-size: 0.85rem; }
+
 .notice-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -1183,9 +1213,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <p>Student Portal Navigation</p>
   </div>
   <a href="#notices">📢 Notices</a>
-  <a href="#student">🧑‍🎓 Student Corner</a>
+  <a href="#student">🧑🎓 Student Corner</a>
   <a href="#academic">📚 Academic Info</a>
-  <a href="#featured-event">⏰ Featured Event</a>
+  <a href="#featured-event"> Featured Event</a>
   <a href="#upcoming-events">📅 Upcoming Events</a>
   <div class="sidebar-divider"></div>
   <a href="#papers">📄 Question Papers</a>
@@ -1193,11 +1223,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <a href="#library">📚 Library</a>
   <a href="tools.html">🧮 Tools</a>
   <div class="sidebar-divider"></div>
-  <a href="college.html">🏛️ College Details</a>
+  <a href="college.html">️ College Details</a>
   <a href="events.html">📅 All Events</a>
   <div class="sidebar-divider"></div>
   <a href="#collab">🤝 Collaboration</a>
-  <a href="#about">ℹ️ About</a>
+  <a href="#about">️ About</a>
   <a href="#our-policy">📄 Policy</a>
   <a href="#feedback">💬 Feedback</a>
 </nav>
@@ -1221,7 +1251,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <div class="ticker">
     <span class="ticker-label">LIVE</span>
     <div class="ticker-content">
-      <span class="ticker-text">📢 Check latest notices • 💳 Pay fees via ERP Portal • 📚 Academic Calendar 2026-27 available • 📄 Previous Year Question Papers • 🤝 Collaborate: kesupdatess@gmail.com</span>
+      <span class="ticker-text"> Check latest notices • 💳 Pay fees via ERP Portal • 📚 Academic Calendar 2026-27 available • 📄 Previous Year Question Papers • 🤝 Collaborate: kesupdatess@gmail.com</span>
     </div>
   </div>
 
@@ -1235,7 +1265,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <p id="noResults" class="no-results">😕 No matching results found.</p>
 
   <!-- ═══════════════════════════════════════════════════════
-       NOTICES SECTION - UNCHANGED
+       NOTICES SECTION - UPDATED WITH LIVE KES DATA
        ═══════════════════════════════════════════════════════ -->
   <div class="card card-featured searchable" id="notices">
     <h2>📢 Important Notices</h2>
@@ -1261,7 +1291,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         <span class="college-icon">🎓</span>
         <h3>Degree College Notices</h3>
       </div>
-      <div id="degree-notices"></div>
+      
+      <!-- LIVE KES NOTICES CONTAINER -->
+      <ul id="kes-live-notices" class="kes-live-list">
+        <li class="kes-loading">Fetching latest notices...</li>
+      </ul>
+      
       <a href="https://kessc.edu.in/notices/" 
          target="_blank" 
          rel="noopener noreferrer"
@@ -1288,7 +1323,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         <span class="arrow">→</span>
       </a>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSdpkELaLHjghZzWYR6EPYotuRvRDa3yQq3r5y2EHkRqrQOG8g/viewform" target="_blank" rel="noopener noreferrer" style="background:var(--danger);color:white;">
-        <span>🚨 Facing issue in college? Tell us!</span>
+        <span> Facing issue in college? Tell us!</span>
         <span class="arrow">→</span>
       </a>
     </div>
@@ -1299,11 +1334,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <h2>📚 Academic Info</h2>
     <div class="link-list">
       <a href="https://drive.google.com/file/d/1F9UqN7SbvUJEaWOy7jtvoiu1dNkEpqVX/view" target="_blank" rel="noopener noreferrer">
-        <span>📅 Academic Calendar 2026-27</span>
+        <span> Academic Calendar 2026-27</span>
         <span class="arrow">→</span>
       </a>
       <a href="https://drive.google.com/file/d/1vYEIClJD7QRGKD0ANY-XlPPUl-h9RN-f/view" target="_blank" rel="noopener noreferrer">
-        <span>🏫 Junior College Fees Structure</span>
+        <span> Junior College Fees Structure</span>
         <span class="arrow">→</span>
       </a>
       <a href="https://drive.google.com/file/d/1VZeVNJ06mvhjIu6u6YeIpQzjxx2GiduN/view" target="_blank" rel="noopener noreferrer">
@@ -1324,7 +1359,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <div id="featured-event-container"></div>
 
   <!-- ═══════════════════════════════════════════════════════
-       📅 UPCOMING EVENTS LIST - DYNAMIC (Replaces hardcoded)
+        UPCOMING EVENTS LIST - DYNAMIC (Replaces hardcoded)
        ═══════════════════════════════════════════════════════ -->
   <div class="card searchable" id="upcoming-events">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;">
@@ -1340,7 +1375,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
   <!-- UNCHANGED SECTIONS -->
   <div class="card searchable" id="papers">
-    <h2>📄 Question Papers</h2>
+    <h2> Question Papers</h2>
     <div class="link-list">
       <a href="https://kessclibrary.wixsite.com/library/copy-of-question-papers" target="_blank" rel="noopener noreferrer">
         <span>📝 Previous Year Question Papers</span>
@@ -1418,7 +1453,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         <div class="tool-desc">Arts & Commerce</div>
       </a>
       <a href="college.html" class="tool-card">
-        <div class="tool-icon">⚖️</div>
+        <div class="tool-icon">️</div>
         <div class="tool-name">Annex-1</div>
         <div class="tool-desc">Law College</div>
       </a>
@@ -1489,7 +1524,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
           <option value="suggestion">💡 Suggestion</option>
           <option value="bug">🐛 Bug Report</option>
           <option value="feature">✨ Feature Request</option>
-          <option value="content">📄 Content Update</option>
+          <option value="content"> Content Update</option>
           <option value="other">📝 Other</option>
         </select>
       </div>
@@ -1517,7 +1552,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
           <li><a href="#erp">💳 ERP Portal</a></li>
           <li><a href="tools.html">🧮 Tools</a></li>
           <li><a href="#papers">📄 Question Papers</a></li>
-          <li><a href="#library">📚 Library</a></li>
+          <li><a href="#library"> Library</a></li>
         </ul>
       </div>
     </div>
@@ -1604,20 +1639,14 @@ async function loadNotices() {
   } catch(e) {
     console.error('Failed to load notices:', e);
     document.getElementById('junior-notices').innerHTML = '';
-    document.getElementById('degree-notices').innerHTML = '';
   }
 }
 
 function renderNotices() {
   const juniorNotices = allNotices.filter(n => n.college_type === 'junior' || n.college_type === 'both');
-  const degreeNotices = allNotices.filter(n => n.college_type === 'degree' || n.college_type === 'both');
-
+  
   document.getElementById('junior-notices').innerHTML = juniorNotices.length
     ? juniorNotices.map(n => renderNoticeCard(n)).join('')
-    : '';
-
-  document.getElementById('degree-notices').innerHTML = degreeNotices.length
-    ? degreeNotices.map(n => renderNoticeCard(n)).join('')
     : '';
 }
 
@@ -1653,6 +1682,84 @@ function escapeHtml(s){
 
 loadNotices();
 setInterval(loadNotices, 30000);
+</script>
+
+<script>
+// ══════════════════════════════════════════════════════
+// 🆕 LIVE KES DEGREE COLLEGE NOTICES SCRAPER
+// ═══════════════════════════════════════════════════════
+const KES_NOTICES_PAGE = 'https://kessc.edu.in/notices/';
+const KES_PROXIES = [
+  'https://corsproxy.io/?',
+  'https://api.allorigins.win/get?url=',
+  'https://api.codetabs.com/v1/proxy?quest='
+];
+
+async function loadKESNotices() {
+  const container = document.getElementById('kes-live-notices');
+  if (!container) return;
+
+  for (const proxy of KES_PROXIES) {
+    try {
+      let response;
+      let htmlText;
+
+      if (proxy.includes('allorigins')) {
+        response = await fetch(proxy + encodeURIComponent(KES_NOTICES_PAGE));
+        if (!response.ok) continue;
+        const data = await response.json();
+        htmlText = data.contents;
+      } else {
+        response = await fetch(proxy + encodeURIComponent(KES_NOTICES_PAGE));
+        if (!response.ok) continue;
+        htmlText = await response.text();
+      }
+
+      if (!htmlText) continue;
+
+      // 🔥 FAST REGEX PARSING (No DOMParser = No 100ms Error)
+      const blockRegex = /<li class="wp-block-post[^>]*>[\s\S]*?<\/li>/g;
+      const blocks = htmlText.match(blockRegex);
+
+      if (!blocks || blocks.length === 0) continue;
+
+      const notices = [];
+      for (let i = 0; i < Math.min(blocks.length, 10); i++) {
+        const block = blocks[i];
+        const linkMatch = block.match(/<a href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/);
+        if (!linkMatch) continue;
+
+        const href = linkMatch[1];
+        const title = linkMatch[2].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+
+        if (!title || title.toLowerCase() === 'notices') continue;
+        notices.push({ title, href });
+      }
+
+      if (notices.length === 0) continue;
+
+      container.innerHTML = notices.map(n => `
+        <li class="kes-live-item">
+          <span class="kes-live-date">New</span>
+          <div class="kes-live-title">
+            <a href="${n.href}" target="_blank" rel="noopener noreferrer">${n.title}</a>
+          </div>
+        </li>
+      `).join('');
+
+      return; 
+
+    } catch (err) {
+      console.warn(`KES Proxy failed: ${proxy}`, err.message);
+      continue;
+    }
+  }
+
+  container.innerHTML = `<li class="kes-loading">Unable to load notices. <button onclick="loadKESNotices()" style="background:none;border:none;color:var(--primary);cursor:pointer;text-decoration:underline;">Retry</button></li>`;
+}
+
+loadKESNotices();
+setInterval(loadKESNotices, 300000);
 </script>
 
 <script>
@@ -1695,7 +1802,6 @@ function renderFeaturedEvent() {
   const targetDate = new Date(end || start);
   const diff = targetDate - now;
   
-  // Badge
   let badgeText = 'UPCOMING';
   let badgeBg = 'var(--danger)';
   
@@ -1710,22 +1816,18 @@ function renderFeaturedEvent() {
     badgeBg = 'var(--warning)';
   }
   
-  // College label
-  const collegeLabel = featured.college_type === 'degree' ? '🎓 Degree College' : 
+  const collegeLabel = featured.college_type === 'degree' ? ' Degree College' : 
                        featured.college_type === 'junior' ? '🏫 Junior College' : '🎓 Both Colleges';
-  const locationText = featured.location ? ` • 📍 ${featured.location}` : '';
+  const locationText = featured.location ? ` •  ${featured.location}` : '';
   
-  // Date text
   let dateText = `📅 Expected: <span class="highlight">${start.toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'})}</span>`;
   if (end && start.toDateString() !== end.toDateString()) {
     dateText = `📅 ${start.toLocaleDateString('en-IN', {day:'numeric', month:'short'})} - ${end.toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'})}`;
   }
   
-  // Store target for live countdown
   window._featuredTarget = targetDate;
   window._featuredEvent = featured;
   
-  // Calculate initial countdown
   const days = Math.max(0, Math.floor(diff / 86400000));
   const hours = Math.max(0, Math.floor((diff % 86400000) / 3600000));
   const mins = Math.max(0, Math.floor((diff % 3600000) / 60000));
@@ -1785,16 +1887,13 @@ function renderUpcomingEventsList() {
     const month = d.toLocaleDateString('en-IN', {month:'short'});
     const day = d.getDate();
     
-    // Type for color
     let dataType = 'event';
     if (e.category === 'exam') dataType = 'exam';
     else if (e.category === 'holiday') dataType = 'vacation';
     
-    // College tag
     const collegeTag = e.college_type === 'degree' ? '🎓 Degree' : 
                        e.college_type === 'junior' ? '🏫 Junior' : '🎓 Both';
     
-    // Countdown text
     const diff = d - now;
     let countdownText = '';
     let countdownClass = 'event-countdown';
@@ -1833,13 +1932,12 @@ function renderUpcomingEventsList() {
   }).join('');
 }
 
-// Live countdown update (every second)
 function updateFeaturedCountdown() {
   if (!window._featuredTarget) return;
   const diff = window._featuredTarget - new Date();
   
   if (diff <= 0) {
-    loadEvents(); // Refresh when done
+    loadEvents();
     return;
   }
   
@@ -1859,7 +1957,7 @@ function updateFeaturedCountdown() {
 
 setInterval(updateFeaturedCountdown, 1000);
 loadEvents();
-setInterval(loadEvents, 120000); // Refresh every 2 minutes
+setInterval(loadEvents, 120000);
 </script>
 
 <script>
