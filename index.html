@@ -277,6 +277,18 @@ body.dark::before {
 .kes-live-title a:hover { color: var(--primary); text-decoration: underline; }
 .kes-loading { text-align: center; padding: 20px; color: var(--text-muted); font-size: 0.85rem; }
 
+.scrape-divider {
+  text-align: center;
+  padding: 15px 0;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-top: 1px dashed var(--border);
+  margin: 10px 0;
+  display: none;
+  letter-spacing: 0.5px;
+}
+
 .notice-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -1143,17 +1155,6 @@ footer {
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
-.degree-scrape-divider {
-  text-align: center;
-  padding: 15px 0;
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  font-weight: 600;
-  border-top: 1px dashed var(--border);
-  margin: 10px 0;
-  display: none;
-}
-
 @media (max-width: 640px) {
   body { font-size: 14px; }
   .page-header h1 { font-size: 1.3rem; }
@@ -1186,8 +1187,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   * { animation: none !important; transition: none !important; }
 }
 </style>
-
-<script src="analytics-tracker.js"></script>
 </head>
 
 <body>
@@ -1270,22 +1269,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <div class="card card-featured searchable" id="notices">
     <h2>📢 Important Notices</h2>
     
-    <!-- DEGREE COLLEGE (TOP) - Admin + Scraped Both -->
+    <!-- DEGREE COLLEGE (TOP) -->
     <div class="notice-college-section">
       <div class="notice-college-header">
         <span class="college-icon">🎓</span>
         <h3>Degree College Notices</h3>
       </div>
       
-      <!-- Admin Panel Custom Notices (Supabase) -->
       <div id="degree-custom-notices"></div>
       
-      <!-- Divider (shown only when custom notices exist) -->
-      <div id="degree-scrape-divider" class="degree-scrape-divider">
+      <div id="degree-scrape-divider" class="scrape-divider">
         🌐 LIVE NOTICES FROM KES WEBSITE
       </div>
       
-      <!-- Scraped Notices from kessc.edu.in -->
       <ul id="kes-live-notices" class="kes-live-list">
         <li class="kes-loading">Fetching latest notices...</li>
       </ul>
@@ -1300,13 +1296,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
       </a>
     </div>
 
-    <!-- JUNIOR COLLEGE (BOTTOM) - Admin Only -->
+    <!-- JUNIOR COLLEGE (BOTTOM) -->
     <div class="notice-college-section">
       <div class="notice-college-header">
         <span class="college-icon">🏫</span>
         <h3>Junior College Notices</h3>
       </div>
-      <div id="junior-notices"></div>
+      
+      <div id="junior-custom-notices"></div>
+      
+      <div id="junior-scrape-divider" class="scrape-divider">
+        🌐 LIVE NOTICES FROM JUNIOR COLLEGE WEBSITE
+      </div>
+      
+      <ul id="junior-live-notices" class="kes-live-list">
+        <li class="kes-loading">Fetching latest notices...</li>
+      </ul>
+      
       <a href="https://kesjrsanghvi.com/enotices/" 
          target="_blank" 
          rel="noopener noreferrer"
@@ -1589,28 +1595,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </div>
 
 <script>
+// Donation tracking
 (function() {
   const btn = document.getElementById('donateBarBtn');
   if (!btn) return;
-
   btn.addEventListener('click', function() {
     const trackData = {
       event_category: 'Donation',
       event_label: 'Bottom Bar - Plant Now',
       page_location: window.location.href,
-      page_path: window.location.pathname,
-      page_title: document.title,
-      source: document.referrer || 'Direct',
-      screen_size: `${window.innerWidth}x${window.innerHeight}`,
-      device_type: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
       timestamp: new Date().toISOString(),
       value: 1
     };
-
     if (typeof gtag === 'function') {
       gtag('event', 'donate_bar_click', trackData);
     }
-
     try {
       const key = 'kes_donate_clicks_v1';
       let history = JSON.parse(localStorage.getItem(key) || '[]');
@@ -1641,25 +1640,26 @@ async function loadNotices() {
     renderNotices();
   } catch(e) {
     console.error('Failed to load notices:', e);
-    document.getElementById('junior-notices').innerHTML = '';
-    document.getElementById('degree-custom-notices').innerHTML = '';
   }
 }
 
 function renderNotices() {
-  // Junior College Notices
   const juniorNotices = allNotices.filter(n => n.college_type === 'junior' || n.college_type === 'both');
-  document.getElementById('junior-notices').innerHTML = juniorNotices.length
-    ? juniorNotices.map(n => renderNoticeCard(n)).join('')
-    : '<p style="color:var(--text-muted);font-size:.85rem;text-align:center;padding:10px;">No Junior College notices added yet.</p>';
+  const juniorCustomContainer = document.getElementById('junior-custom-notices');
+  
+  if (juniorNotices.length > 0) {
+    juniorCustomContainer.innerHTML = juniorNotices.map(n => renderNoticeCard(n)).join('');
+    document.getElementById('junior-scrape-divider').style.display = 'block';
+  } else {
+    juniorCustomContainer.innerHTML = '';
+    document.getElementById('junior-scrape-divider').style.display = 'none';
+  }
 
-  // Degree College Custom Notices (from Admin Panel)
   const degreeNotices = allNotices.filter(n => n.college_type === 'degree' || n.college_type === 'both');
   const degreeCustomContainer = document.getElementById('degree-custom-notices');
   
   if (degreeNotices.length > 0) {
     degreeCustomContainer.innerHTML = degreeNotices.map(n => renderNoticeCard(n, true)).join('');
-    // Show divider before scraped notices
     document.getElementById('degree-scrape-divider').style.display = 'block';
   } else {
     degreeCustomContainer.innerHTML = '';
@@ -1735,7 +1735,6 @@ async function loadKESNotices() {
 
       if (!htmlText) continue;
 
-      // FAST REGEX PARSING
       const blockRegex = /<li class="wp-block-post[^>]*>[\s\S]*?<\/li>/g;
       const blocks = htmlText.match(blockRegex);
 
@@ -1778,6 +1777,88 @@ async function loadKESNotices() {
 
 loadKESNotices();
 setInterval(loadKESNotices, 300000);
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// LIVE JUNIOR COLLEGE NOTICES SCRAPER
+// ═══════════════════════════════════════════════════════
+const JUNIOR_JSON_URL = 'https://kesjrsanghvi.com/notices/newsupdate.json';
+const JUNIOR_PROXIES = [
+  'https://corsproxy.io/?',
+  'https://api.allorigins.win/raw?url=',
+  'https://api.codetabs.com/v1/proxy?quest='
+];
+
+async function loadJuniorNotices() {
+  const container = document.getElementById('junior-live-notices');
+  if (!container) return;
+
+  for (const proxy of JUNIOR_PROXIES) {
+    try {
+      const res = await fetch(proxy + encodeURIComponent(JUNIOR_JSON_URL));
+      if (!res.ok) continue;
+      
+      const data = await res.json();
+      if (!data || !Array.isArray(data) || data.length === 0) continue;
+
+      const notices = data.slice(0, 15).map(item => {
+        let title = item.title || '';
+        let description = item.description || '';
+        let attachment = item.attachment || '';
+        
+        if (title.toUpperCase() === 'JUNIOR COLLEGE' || title.length < 10) {
+          if (description && description.length > 10) {
+            title = description.split('.')[0].trim();
+          } else if (attachment) {
+            const urlParts = attachment.split('/');
+            const fileName = urlParts[urlParts.length - 1];
+            title = fileName.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ').trim();
+          }
+        }
+        
+        title = title.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+        
+        return {
+          title: title || 'Notice',
+          attachment: attachment,
+          hasPdf: attachment && (attachment.includes('.pdf') || attachment.includes('.doc'))
+        };
+      }).filter(n => n.title !== 'Notice' && n.title.length > 5);
+
+      const unique = [];
+      const seen = new Set();
+      for (const n of notices) {
+        if (!seen.has(n.title)) {
+          seen.add(n.title);
+          unique.push(n);
+        }
+      }
+
+      if (unique.length === 0) continue;
+
+      container.innerHTML = unique.slice(0, 15).map(n => `
+        <li class="kes-live-item">
+          <span class="kes-live-date">${n.hasPdf ? '📄 PDF' : '🔗 Link'}</span>
+          <div class="kes-live-title">
+            <a href="${n.attachment || '#'}" target="_blank" rel="noopener noreferrer">${n.title}</a>
+          </div>
+        </li>
+      `).join('');
+
+      return;
+
+    } catch (err) {
+      console.warn(`Junior Proxy failed: ${proxy}`, err.message);
+      continue;
+    }
+  }
+
+  container.innerHTML = `<li class="kes-loading">Unable to load notices. <button onclick="loadJuniorNotices()" style="background:none;border:none;color:var(--primary);cursor:pointer;text-decoration:underline;">Retry</button></li>`;
+}
+
+loadJuniorNotices();
+setInterval(loadJuniorNotices, 300000);
 </script>
 
 <script>
