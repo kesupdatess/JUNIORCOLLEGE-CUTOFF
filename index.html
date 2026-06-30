@@ -277,18 +277,6 @@ body.dark::before {
 .kes-live-title a:hover { color: var(--primary); text-decoration: underline; }
 .kes-loading { text-align: center; padding: 20px; color: var(--text-muted); font-size: 0.85rem; }
 
-.scrape-divider {
-  text-align: center;
-  padding: 15px 0;
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  font-weight: 700;
-  border-top: 1px dashed var(--border);
-  margin: 10px 0;
-  display: none;
-  letter-spacing: 0.5px;
-}
-
 .notice-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -1155,6 +1143,18 @@ footer {
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
+.scrape-divider {
+  text-align: center;
+  padding: 15px 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-top: 1px dashed var(--border);
+  margin: 10px 0;
+  display: none;
+  letter-spacing: 0.5px;
+}
+
 @media (max-width: 640px) {
   body { font-size: 14px; }
   .page-header h1 { font-size: 1.3rem; }
@@ -1263,9 +1263,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   </div>
   <p id="noResults" class="no-results">😕 No matching results found.</p>
 
-  <!-- ═══════════════════════════════════════════════════════
-       NOTICES SECTION - DEGREE TOP, JUNIOR BOTTOM
-       ═══════════════════════════════════════════════════════ -->
+  <!-- NOTICES SECTION -->
   <div class="card card-featured searchable" id="notices">
     <h2>📢 Important Notices</h2>
     
@@ -1326,7 +1324,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <a class="btn whatsapp-btn btn-full" href="https://wa.me/?text=Check%20out%20KES%20Updates%3A%20https%3A%2F%2Fkesupdatess.github.io%2Fkes-Updatess%2F" target="_blank" rel="noopener noreferrer" style="margin-top:16px;">📱 Share on WhatsApp</a>
   </div>
 
-  <!-- UNCHANGED SECTIONS -->
+  <!-- OTHER SECTIONS -->
   <div class="card searchable" id="student">
     <h2>🧑‍🎓 Student Corner</h2>
     <div class="link-list">
@@ -1595,21 +1593,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </div>
 
 <script>
-// Donation tracking
 (function() {
   const btn = document.getElementById('donateBarBtn');
   if (!btn) return;
+
   btn.addEventListener('click', function() {
     const trackData = {
       event_category: 'Donation',
       event_label: 'Bottom Bar - Plant Now',
       page_location: window.location.href,
+      page_path: window.location.pathname,
+      page_title: document.title,
+      source: document.referrer || 'Direct',
+      screen_size: `${window.innerWidth}x${window.innerHeight}`,
+      device_type: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
       timestamp: new Date().toISOString(),
       value: 1
     };
+
     if (typeof gtag === 'function') {
       gtag('event', 'donate_bar_click', trackData);
     }
+
     try {
       const key = 'kes_donate_clicks_v1';
       let history = JSON.parse(localStorage.getItem(key) || '[]');
@@ -1640,10 +1645,13 @@ async function loadNotices() {
     renderNotices();
   } catch(e) {
     console.error('Failed to load notices:', e);
+    document.getElementById('junior-custom-notices').innerHTML = '';
+    document.getElementById('degree-custom-notices').innerHTML = '';
   }
 }
 
 function renderNotices() {
+  // Junior College Custom Notices
   const juniorNotices = allNotices.filter(n => n.college_type === 'junior' || n.college_type === 'both');
   const juniorCustomContainer = document.getElementById('junior-custom-notices');
   
@@ -1655,6 +1663,7 @@ function renderNotices() {
     document.getElementById('junior-scrape-divider').style.display = 'none';
   }
 
+  // Degree College Custom Notices
   const degreeNotices = allNotices.filter(n => n.college_type === 'degree' || n.college_type === 'both');
   const degreeCustomContainer = document.getElementById('degree-custom-notices');
   
@@ -1735,6 +1744,7 @@ async function loadKESNotices() {
 
       if (!htmlText) continue;
 
+      // Extract notices from wp-block-post elements
       const blockRegex = /<li class="wp-block-post[^>]*>[\s\S]*?<\/li>/g;
       const blocks = htmlText.match(blockRegex);
 
@@ -1781,7 +1791,7 @@ setInterval(loadKESNotices, 300000);
 
 <script>
 // ═══════════════════════════════════════════════════════
-// LIVE JUNIOR COLLEGE NOTICES SCRAPER
+// LIVE JUNIOR COLLEGE NOTICES SCRAPER (JSON API)
 // ═══════════════════════════════════════════════════════
 const JUNIOR_JSON_URL = 'https://kesjrsanghvi.com/notices/newsupdate.json';
 const JUNIOR_PROXIES = [
@@ -1802,11 +1812,13 @@ async function loadJuniorNotices() {
       const data = await res.json();
       if (!data || !Array.isArray(data) || data.length === 0) continue;
 
+      // Parse JSON - Smart title extraction
       const notices = data.slice(0, 15).map(item => {
         let title = item.title || '';
         let description = item.description || '';
         let attachment = item.attachment || '';
         
+        // If title is generic, use description or attachment
         if (title.toUpperCase() === 'JUNIOR COLLEGE' || title.length < 10) {
           if (description && description.length > 10) {
             title = description.split('.')[0].trim();
@@ -1826,18 +1838,9 @@ async function loadJuniorNotices() {
         };
       }).filter(n => n.title !== 'Notice' && n.title.length > 5);
 
-      const unique = [];
-      const seen = new Set();
-      for (const n of notices) {
-        if (!seen.has(n.title)) {
-          seen.add(n.title);
-          unique.push(n);
-        }
-      }
+      if (notices.length === 0) continue;
 
-      if (unique.length === 0) continue;
-
-      container.innerHTML = unique.slice(0, 15).map(n => `
+      container.innerHTML = notices.map(n => `
         <li class="kes-live-item">
           <span class="kes-live-date">${n.hasPdf ? '📄 PDF' : '🔗 Link'}</span>
           <div class="kes-live-title">
