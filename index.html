@@ -248,6 +248,35 @@ body.dark::before {
 .notice-college-header .college-icon { font-size: 1.3rem; }
 .notice-college-header h3 { font-size: 0.98rem; font-weight: 700; color: var(--text); }
 
+.kes-live-list { list-style: none; margin-bottom: 14px; }
+.kes-live-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    transition: background 0.2s;
+}
+.kes-live-item:last-child { border-bottom: none; }
+.kes-live-item:hover { background: var(--primary-bg); margin: 0 -10px; padding-left: 10px; padding-right: 10px; border-radius: 6px; }
+.kes-live-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 100px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.kes-live-title a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.4;
+    transition: color 0.2s;
+}
+.kes-live-title a:hover { color: var(--primary); text-decoration: underline; }
+.kes-loading { text-align: center; padding: 20px; color: var(--text-muted); font-size: 0.85rem; }
+
 .notice-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -416,487 +445,6 @@ body.dark::before {
   margin-bottom: 14px;
   flex-wrap: wrap;
 }
-
-.countdown-badge {
-  background: var(--danger);
-  color: white;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.countdown-badge::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
-  animation: pulse 1.5s infinite;
-}
-
-.countdown-title { font-size: 1rem; font-weight: 700; }
-.countdown-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
-
-.countdown-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin: 14px 0;
-}
-
-.countdown-unit {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 6px;
-  text-align: center;
-}
-
-.countdown-num {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--primary-dark);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.countdown-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  margin-top: 4px;
-  letter-spacing: 0.5px;
-}
-
-.countdown-note {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px dashed var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.countdown-note .highlight {
-  color: var(--danger);
-  font-weight: 700;
-}
-
-.events-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 14px 0;
-}
-
-.event-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--primary-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 14px;
-  transition: all 0.2s;
-  position: relative;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-}
-
-.event-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  border-radius: 14px 0 0 14px;
-}
-
-.event-item[data-type="exam"]::before { background: var(--danger); }
-.event-item[data-type="vacation"]::before { background: var(--success); }
-.event-item[data-type="event"]::before { background: var(--primary); }
-
-.event-item:hover {
-  transform: translateX(3px);
-  border-color: var(--primary);
-  box-shadow: var(--shadow-md);
-}
-
-.event-date-box {
-  width: 50px;
-  height: 50px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.event-date-box .month {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--primary);
-  text-transform: uppercase;
-}
-
-.event-date-box .day {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1;
-}
-
-.event-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.event-info .title {
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: var(--text);
-  margin-bottom: 3px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.event-info .meta {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.event-countdown {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--danger);
-  background: rgba(220,38,38,0.08);
-  padding: 3px 9px;
-  border-radius: 50px;
-  display: inline-block;
-  margin-top: 4px;
-}
-
-.event-countdown.soon {
-  color: var(--warning);
-  background: rgba(217,119,6,0.1);
-}
-
-.event-countdown.far {
-  color: var(--success);
-  background: rgba(5,150,105,0.1);
-}
-
-.event-arrow {
-  color: var(--primary);
-  font-size: 0.9rem;
-  flex-shrink: 0;
-}
-
-.link-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 12px 0;
-}
-
-.link-list a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 11px 14px;
-  background: var(--primary-bg);
-  color: var(--text);
-  text-decoration: none;
-  border-radius: var(--radius-sm);
-  font-weight: 500;
-  font-size: 0.88rem;
-  transition: all 0.15s;
-  border: 1px solid transparent;
-}
-
-.link-list a:hover {
-  background: var(--primary);
-  color: white;
-  transform: translateX(2px);
-}
-
-.link-list a .arrow {
-  opacity: 0;
-  transition: all 0.2s;
-  font-size: 0.8rem;
-}
-
-.link-list a:hover .arrow {
-  opacity: 1;
-  transform: translateX(3px);
-}
-
-.erp-features {
-  list-style: none;
-  margin: 14px 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-
-.erp-features li {
-  padding: 11px 18px;
-  font-size: 0.88rem;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 500;
-  transition: background 0.15s;
-}
-
-.erp-features li:last-child { border-bottom: none; }
-.erp-features li:nth-child(odd) { background: var(--primary-bg); }
-.erp-features li:hover { background: var(--primary-light); }
-.erp-features li a { color: inherit; text-decoration: none; }
-.erp-features li a:hover { color: var(--primary); }
-
-input, select, textarea {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  font-family: inherit;
-  background: var(--card);
-  color: var(--text);
-  transition: all 0.15s;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-}
-
-input::placeholder, textarea::placeholder { color: var(--text-muted); }
-
-label {
-  display: block;
-  font-size: 0.82rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.form-group { margin-bottom: 12px; }
-
-.ticker {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 10px 14px;
-  margin-bottom: 16px;
-  overflow: hidden;
-}
-
-.ticker-label {
-  background: var(--danger);
-  color: white;
-  font-size: 0.68rem;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 4px;
-  flex-shrink: 0;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.ticker-label::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
-  animation: pulse 1.5s infinite;
-}
-
-.ticker-content { overflow: hidden; flex: 1; white-space: nowrap; }
-
-.ticker-text {
-  display: inline-block;
-  animation: scroll 40s linear infinite;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  padding-left: 100%;
-  font-weight: 500;
-}
-
-@keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
-}
-
-.search-wrapper {
-  position: sticky;
-  top: 56px;
-  z-index: 50;
-  background: color-mix(in srgb, var(--bg) 90%, transparent);
-  backdrop-filter: blur(12px);
-  padding: 10px 16px;
-  margin-bottom: 10px;
-}
-
-.search-input-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.search-icon {
-  position: absolute;
-  left: 14px;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  pointer-events: none;
-}
-
-.search-input-wrap input {
-  padding-left: 40px;
-  padding-right: 14px;
-  background: var(--card);
-  border: 1px solid var(--border);
-}
-
-.search-suggestions {
-  display: none;
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  right: 0;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px;
-  z-index: 10;
-  flex-wrap: wrap;
-  gap: 6px;
-  box-shadow: var(--shadow-md);
-}
-
-.search-suggestions.active { display: flex; }
-
-.search-suggestions span {
-  background: var(--primary-bg);
-  color: var(--primary-dark);
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.search-suggestions span:hover {
-  background: var(--primary);
-  color: white;
-}
-
-.no-results {
-  display: none;
-  text-align: center;
-  padding: 30px 20px;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
-
-.no-results.active { display: block; }
-
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin: 12px 0;
-}
-
-.tools-grid-3 { grid-template-columns: repeat(3, 1fr); }
-
-.tool-card {
-  padding: 16px 12px;
-  background: var(--primary-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  text-align: center;
-  transition: all 0.2s;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.tool-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--primary);
-  box-shadow: var(--shadow-md);
-}
-
-.tool-icon { font-size: 1.6rem; margin-bottom: 6px; display: inline-block; }
-.tool-name { font-weight: 700; font-size: 0.85rem; color: var(--primary-dark); margin-bottom: 4px; }
-.tool-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.3; }
-
-.email-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  background: var(--primary-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  margin-top: 12px;
-}
-
-.email-box .email {
-  font-weight: 600;
-  color: var(--primary-dark);
-  font-size: 0.88rem;
-  word-break: break-all;
-}
-
-.email-actions { display: flex; gap: 6px; }
-
-.instagram-btn {
-  background: linear-gradient(135deg, #E1306C, #C13584, #833AB4) !important;
-  color: white !important;
-  border: none !important;
-}
-
-.instagram-btn:hover { opacity: 0.95; }
-.instagram-icon { width: 16px; height: 16px; }
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -280px;
-  width: 270px;
-  height: 100%;
-  background: var(--card);
-  border-right: 1px solid v}
 
 .countdown-badge {
   background: var(--danger);
@@ -1595,6 +1143,17 @@ footer {
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
+.degree-scrape-divider {
+  text-align: center;
+  padding: 15px 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-top: 1px dashed var(--border);
+  margin: 10px 0;
+  display: none;
+}
+
 @media (max-width: 640px) {
   body { font-size: 14px; }
   .page-header h1 { font-size: 1.3rem; }
@@ -1627,6 +1186,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   * { animation: none !important; transition: none !important; }
 }
 </style>
+
+<script src="analytics-tracker.js"></script>
 </head>
 
 <body>
@@ -1709,19 +1270,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <div class="card card-featured searchable" id="notices">
     <h2>📢 Important Notices</h2>
     
-    <!-- DEGREE COLLEGE (TOP) -->
+    <!-- DEGREE COLLEGE (TOP) - Admin + Scraped Both -->
     <div class="notice-college-section">
       <div class="notice-college-header">
         <span class="college-icon">🎓</span>
         <h3>Degree College Notices</h3>
       </div>
       
+      <!-- Admin Panel Custom Notices (Supabase) -->
       <div id="degree-custom-notices"></div>
       
-      <div id="degree-scrape-divider" class="scrape-divider">
+      <!-- Divider (shown only when custom notices exist) -->
+      <div id="degree-scrape-divider" class="degree-scrape-divider">
         🌐 LIVE NOTICES FROM KES WEBSITE
       </div>
       
+      <!-- Scraped Notices from kessc.edu.in -->
       <ul id="kes-live-notices" class="kes-live-list">
         <li class="kes-loading">Fetching latest notices...</li>
       </ul>
@@ -1736,23 +1300,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
       </a>
     </div>
 
-    <!-- JUNIOR COLLEGE (BOTTOM) -->
+    <!-- JUNIOR COLLEGE (BOTTOM) - Admin Only -->
     <div class="notice-college-section">
       <div class="notice-college-header">
         <span class="college-icon">🏫</span>
         <h3>Junior College Notices</h3>
       </div>
-      
-      <div id="junior-custom-notices"></div>
-      
-      <div id="junior-scrape-divider" class="scrape-divider">
-        🌐 LIVE NOTICES FROM JUNIOR COLLEGE WEBSITE
-      </div>
-      
-      <ul id="junior-live-notices" class="kes-live-list">
-        <li class="kes-loading">Fetching latest notices...</li>
-      </ul>
-      
+      <div id="junior-notices"></div>
       <a href="https://kesjrsanghvi.com/enotices/" 
          target="_blank" 
          rel="noopener noreferrer"
@@ -2035,21 +1589,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </div>
 
 <script>
-// Donation tracking
 (function() {
   const btn = document.getElementById('donateBarBtn');
   if (!btn) return;
+
   btn.addEventListener('click', function() {
     const trackData = {
       event_category: 'Donation',
       event_label: 'Bottom Bar - Plant Now',
       page_location: window.location.href,
+      page_path: window.location.pathname,
+      page_title: document.title,
+      source: document.referrer || 'Direct',
+      screen_size: `${window.innerWidth}x${window.innerHeight}`,
+      device_type: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
       timestamp: new Date().toISOString(),
       value: 1
     };
+
     if (typeof gtag === 'function') {
       gtag('event', 'donate_bar_click', trackData);
     }
+
     try {
       const key = 'kes_donate_clicks_v1';
       let history = JSON.parse(localStorage.getItem(key) || '[]');
@@ -2080,26 +1641,25 @@ async function loadNotices() {
     renderNotices();
   } catch(e) {
     console.error('Failed to load notices:', e);
+    document.getElementById('junior-notices').innerHTML = '';
+    document.getElementById('degree-custom-notices').innerHTML = '';
   }
 }
 
 function renderNotices() {
+  // Junior College Notices
   const juniorNotices = allNotices.filter(n => n.college_type === 'junior' || n.college_type === 'both');
-  const juniorCustomContainer = document.getElementById('junior-custom-notices');
-  
-  if (juniorNotices.length > 0) {
-    juniorCustomContainer.innerHTML = juniorNotices.map(n => renderNoticeCard(n)).join('');
-    document.getElementById('junior-scrape-divider').style.display = 'block';
-  } else {
-    juniorCustomContainer.innerHTML = '';
-    document.getElementById('junior-scrape-divider').style.display = 'none';
-  }
+  document.getElementById('junior-notices').innerHTML = juniorNotices.length
+    ? juniorNotices.map(n => renderNoticeCard(n)).join('')
+    : '<p style="color:var(--text-muted);font-size:.85rem;text-align:center;padding:10px;">No Junior College notices added yet.</p>';
 
+  // Degree College Custom Notices (from Admin Panel)
   const degreeNotices = allNotices.filter(n => n.college_type === 'degree' || n.college_type === 'both');
   const degreeCustomContainer = document.getElementById('degree-custom-notices');
   
   if (degreeNotices.length > 0) {
     degreeCustomContainer.innerHTML = degreeNotices.map(n => renderNoticeCard(n, true)).join('');
+    // Show divider before scraped notices
     document.getElementById('degree-scrape-divider').style.display = 'block';
   } else {
     degreeCustomContainer.innerHTML = '';
@@ -2175,6 +1735,7 @@ async function loadKESNotices() {
 
       if (!htmlText) continue;
 
+      // FAST REGEX PARSING
       const blockRegex = /<li class="wp-block-post[^>]*>[\s\S]*?<\/li>/g;
       const blocks = htmlText.match(blockRegex);
 
@@ -2217,88 +1778,6 @@ async function loadKESNotices() {
 
 loadKESNotices();
 setInterval(loadKESNotices, 300000);
-</script>
-
-<script>
-// ═══════════════════════════════════════════════════════
-// LIVE JUNIOR COLLEGE NOTICES SCRAPER
-// ═══════════════════════════════════════════════════════
-const JUNIOR_JSON_URL = 'https://kesjrsanghvi.com/notices/newsupdate.json';
-const JUNIOR_PROXIES = [
-  'https://corsproxy.io/?',
-  'https://api.allorigins.win/raw?url=',
-  'https://api.codetabs.com/v1/proxy?quest='
-];
-
-async function loadJuniorNotices() {
-  const container = document.getElementById('junior-live-notices');
-  if (!container) return;
-
-  for (const proxy of JUNIOR_PROXIES) {
-    try {
-      const res = await fetch(proxy + encodeURIComponent(JUNIOR_JSON_URL));
-      if (!res.ok) continue;
-      
-      const data = await res.json();
-      if (!data || !Array.isArray(data) || data.length === 0) continue;
-
-      const notices = data.slice(0, 15).map(item => {
-        let title = item.title || '';
-        let description = item.description || '';
-        let attachment = item.attachment || '';
-        
-        if (title.toUpperCase() === 'JUNIOR COLLEGE' || title.length < 10) {
-          if (description && description.length > 10) {
-            title = description.split('.')[0].trim();
-          } else if (attachment) {
-            const urlParts = attachment.split('/');
-            const fileName = urlParts[urlParts.length - 1];
-            title = fileName.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ').trim();
-          }
-        }
-        
-        title = title.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-        
-        return {
-          title: title || 'Notice',
-          attachment: attachment,
-          hasPdf: attachment && (attachment.includes('.pdf') || attachment.includes('.doc'))
-        };
-      }).filter(n => n.title !== 'Notice' && n.title.length > 5);
-
-      const unique = [];
-      const seen = new Set();
-      for (const n of notices) {
-        if (!seen.has(n.title)) {
-          seen.add(n.title);
-          unique.push(n);
-        }
-      }
-
-      if (unique.length === 0) continue;
-
-      container.innerHTML = unique.slice(0, 15).map(n => `
-        <li class="kes-live-item">
-          <span class="kes-live-date">${n.hasPdf ? '📄 PDF' : '🔗 Link'}</span>
-          <div class="kes-live-title">
-            <a href="${n.attachment || '#'}" target="_blank" rel="noopener noreferrer">${n.title}</a>
-          </div>
-        </li>
-      `).join('');
-
-      return;
-
-    } catch (err) {
-      console.warn(`Junior Proxy failed: ${proxy}`, err.message);
-      continue;
-    }
-  }
-
-  container.innerHTML = `<li class="kes-loading">Unable to load notices. <button onclick="loadJuniorNotices()" style="background:none;border:none;color:var(--primary);cursor:pointer;text-decoration:underline;">Retry</button></li>`;
-}
-
-loadJuniorNotices();
-setInterval(loadJuniorNotices, 300000);
 </script>
 
 <script>
